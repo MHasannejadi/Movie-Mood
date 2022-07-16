@@ -1,4 +1,5 @@
 .navbar {
+  background-color: black;
   ul {
     list-style-type: none;
     padding-left: 1rem;
@@ -8,9 +9,13 @@
       color: white;
       display: inline;
       margin: 1rem;
+      transition: all 0.3s ease;
+      &:hover{
+        color: #f9ff00;
+      }
       button {
         cursor: pointer;
-        font-weight: bold;
+        font-size: 1rem;
         border: none;
         background: #f9ff00;
         border-radius: 7px;

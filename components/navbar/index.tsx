@@ -1,9 +1,22 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import SearchBar from "../SearchBar";
 import styles from "./navbar.module.scss";
 
 function Navbar() {
+  const [isLogin, setIsLogin] = useState(false);
+  const router = useRouter();
+
   const logoutHandler = () => {};
+
+  const loginClickHandler = () => {
+    if (isLogin) {
+      logoutHandler();
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
     <>
@@ -19,7 +32,10 @@ function Navbar() {
             <SearchBar />
           </li>
           <li>
-            <button onClick={logoutHandler}>Logout</button>
+            <button onClick={loginClickHandler}>
+              {isLogin && <>Logout</>}
+              {!isLogin && <>Login</>}
+            </button>
           </li>
         </ul>
       </nav>
