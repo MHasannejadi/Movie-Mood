@@ -1,5 +1,9 @@
 function Actor() {
-    return ( <>Hello</> );
+  return (
+    <div>
+      <p>actor</p>
+    </div>
+  );
 }
 
 export default Actor;

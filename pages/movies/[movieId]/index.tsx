@@ -1,5 +1,5 @@
 function Movie() {
-    return ( <></> );
+  return <div>movie</div>;
 }
 
 export default Movie;

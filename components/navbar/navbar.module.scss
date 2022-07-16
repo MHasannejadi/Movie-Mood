@@ -1,0 +1,22 @@
+.navbar {
+  ul {
+    list-style-type: none;
+    padding-left: 1rem;
+    margin-top: 0;
+    padding: 1rem;
+    li {
+      color: white;
+      display: inline;
+      margin: 1rem;
+      button {
+        cursor: pointer;
+        font-weight: bold;
+        border: none;
+        background: #f9ff00;
+        border-radius: 7px;
+        width: 5rem;
+        height: 2rem;
+      }
+    }
+  }
+}
