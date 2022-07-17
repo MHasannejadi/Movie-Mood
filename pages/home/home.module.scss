@@ -1,0 +1,17 @@
+.home {
+  h1 {
+    text-align: center;
+  }
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 0;
+    li {
+      margin: 10px;
+      flex: 0 0 10%;
+      margin-bottom: 2rem;
+    }
+  }
+}
