@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import MovieCard from "../../components/movieCard/movieCard";
-import { useGetPopularMoviesQuery } from "../../services/api";
+import { useGetPopularMoviesQuery } from "../../services/movieApi";
 import styles from "./home.module.scss";
 
 function HomePage() {

@@ -8,14 +8,16 @@
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    // height: 15rem;
     display: flex;
     flex-direction: column;
-    // align-items: flex-end;
     h1 {
+      text-align: center;
       margin: auto;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       margin-top: 2rem;
+    }
+    label{
+      margin-top: 1rem;
     }
     input {
       flex-basis: 100%;
@@ -40,7 +42,7 @@
       border: 1px rgba(0, 119, 255, 0.778);
       border-radius: 3px;
       margin-top: 25px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
