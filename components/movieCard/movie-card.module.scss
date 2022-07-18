@@ -4,9 +4,8 @@
   text-align: center;
   height: 100%;
   img {
-    width: 220px;
-    height: 330px;
-    border-radius: 8px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
     cursor: pointer;
   }
   .title {
@@ -14,7 +13,6 @@
     margin-top: 0.7rem;
     margin-bottom: 0.5rem;
     font-weight: bold;
-
   }
   a {
     text-overflow: ellipsis;
@@ -38,12 +36,18 @@
     font-weight: bold;
     font-size: 0.9rem;
   }
+  .detail {
+    padding: 0 13px !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
   button {
     background: red;
     border: none;
     color: white;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;

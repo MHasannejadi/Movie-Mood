@@ -13,11 +13,13 @@ function MovieCard({ movie }: { movie: any }) {
               alt=""
             ></img>
           </Link>{" "}
-          <Link href={`/movie/${movie.id}`}>
-            <span className={styles.title}>{movie.title}</span>
-          </Link>{" "}
-          <p>{movie.overview}</p>
-          <span className={styles.rate}>Rate: {movie.vote_average}</span>
+          <div className={styles.detail}>
+            <Link href={`/movie/${movie.id}`}>
+              <span className={styles.title}>{movie.title}</span>
+            </Link>{" "}
+            <p>{movie.overview}</p>
+            <span className={styles.rate}>Rate: {movie.vote_average}</span>
+          </div>
           <button>Add to Watch List</button>
         </article>
       </li>

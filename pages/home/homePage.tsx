@@ -14,6 +14,7 @@ function HomePage() {
     isLoading,
     isFetching,
   } = useGetPopularMoviesQuery("bd422e7b500e20ac0bad0f395328407c");
+
   return (
     <div className={styles.home}>
       {/* {isLoading && <div>Loading...</div>} */}

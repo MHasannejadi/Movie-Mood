@@ -9,9 +9,11 @@
     justify-content: center;
     padding-left: 0;
     li {
-      margin: 10px;
-      flex: 0 0 10%;
+      margin: 5px;
       margin-bottom: 2rem;
+      flex: 0 0 14%;
+      border: #8080802e solid 1px;
+      border-radius: 8px;
     }
   }
 }
