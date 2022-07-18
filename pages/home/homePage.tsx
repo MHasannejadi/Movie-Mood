@@ -5,9 +5,9 @@ import { useGetPopularMoviesQuery } from "../../services/movieApi";
 import styles from "./home.module.scss";
 
 function HomePage() {
-  let token = "";
+  let token: string | null = "";
   useEffect(() => {
-    localStorage.getItem("token") || "bd422e7b500e20ac0bad0f395328407c";
+    token = localStorage.getItem("session_id");
   }, []);
   const {
     data = [],
