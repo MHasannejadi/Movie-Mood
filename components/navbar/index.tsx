@@ -26,6 +26,7 @@ function Navbar() {
   useEffect(() => {
     if (userData.username) {
       setIsLogin(true);
+      localStorage.setItem("user_data", JSON.stringify(userData));
     }
   }, [userData]);
 

@@ -21,6 +21,20 @@ export interface GetSessionResponse {
   session_id: string;
 }
 
+export interface AddToWatchListRequest {
+  account_id: string;
+  session_id: string;
+  key: string;
+  media_type: string;
+  media_id: number;
+  watchlist: boolean;
+}
+export interface AddToWatchListResponse {
+  success: boolean;
+  status_code: number;
+  status_message: string;
+}
+
 export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://api.themoviedb.org/3/",
@@ -63,6 +77,24 @@ export const userApi = createApi({
       query: (credentials) =>
         `account?api_key=${credentials.key}&session_id=${credentials.session_id}`,
     }),
+    addToWatchList: builder.mutation<
+      AddToWatchListResponse,
+      AddToWatchListRequest
+    >({
+      query: (credentials) => ({
+        url: `account/${credentials.account_id}/watchlist?api_key=${credentials.key}&session_id=${credentials.session_id}`,
+        method: "POST",
+        body: {
+          media_type: credentials.media_type,
+          media_id: credentials.media_id,
+          watchlist: credentials.watchlist,
+        },
+      }),
+    }),
+    getWatchList: builder.query({
+      query: (credentials) =>
+        `account/${credentials.account_id}/watchlist/movies?api_key=${credentials.key}&session_id=${credentials.session_id}&sort_by=created_at.asc&page=1`,
+    }),
   }),
 });
 
@@ -71,4 +103,6 @@ export const {
   useLoginMutation,
   useCreateSessionMutation,
   useGetUserDataQuery,
+  useAddToWatchListMutation,
+  useGetWatchListQuery,
 } = userApi;
