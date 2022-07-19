@@ -3,7 +3,6 @@
   ul {
     display: flex;
     list-style-type: none;
-    padding-left: 1rem;
     margin-top: 0;
     margin-left: 1.5rem;
     li {
@@ -13,13 +12,14 @@
       margin: 1rem;
       transition: all 0.3s ease;
       &:hover {
-        color: #f9ff00;
+        color: #00d0ff;
       }
       button {
         cursor: pointer;
         font-size: 1rem;
         border: none;
-        background: #f9ff00;
+        background: #00aeff;
+        color: white;
         border-radius: 7px;
         width: 5rem;
         height: 2rem;
@@ -27,7 +27,7 @@
     }
     .user {
       margin-left: auto;
-      margin-right: 1.5rem;
+      margin-right: 5rem;
       span {
         margin-right: 1rem;
       }
