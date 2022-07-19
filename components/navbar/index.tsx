@@ -3,11 +3,12 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import apiKey from "../../api/apiKey";
 import { useGetUserDataQuery } from "../../services/userApi";
-import SearchBar from "../SearchBar";
+import SearchBar from "../search/SearchBar";
 import styles from "./navbar.module.scss";
 
 function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
+  const [skip, setSkip] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>();
 
   const router = useRouter();
@@ -21,7 +22,9 @@ function Navbar() {
     data: userData = {},
     refetch,
     isLoading,
-  } = useGetUserDataQuery(credentials);
+  } = useGetUserDataQuery(credentials, {
+    skip,
+  });
 
   useEffect(() => {
     if (userData.username) {
@@ -33,12 +36,15 @@ function Navbar() {
   useEffect(() => {
     let session = localStorage.getItem("session_id") || "";
     setSessionId(session);
+    if (session) {
+      setSkip(false);
+    }
   }, []);
 
   const logoutHandler = async () => {
     localStorage.removeItem("session_id");
     setSessionId(null);
-    refetch();
+    // refetch();
     setIsLogin(false);
   };
 
