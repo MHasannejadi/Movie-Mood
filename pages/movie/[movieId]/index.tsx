@@ -3,8 +3,8 @@ import type { ReactElement } from "react";
 import { useRouter } from "next/router";
 import apiKey from "../../../api/apiKey";
 import Layout from "../../../components/layout";
-import { useGetMovieQuery } from "../../../services/movieApi";
 import { NextPageWithLayout } from "../../_app";
+import { useGetMovieQuery } from "../../../services/movieApi";
 import styles from "./movie.module.scss";
 
 const MoviePage: NextPageWithLayout = () => {

@@ -2,6 +2,7 @@ import { ReactElement } from "react";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import Navbar from "./navbar";
+import styles from "./layout.module.scss";
 
 type layoutProps = {
   children: React.ReactNode;
@@ -13,7 +14,7 @@ export default function Layout({ children }: layoutProps) {
       <Provider store={store}>
         <Navbar />
       </Provider>
-      <main>{children}</main>
+      <main className={styles.layout}>{children}</main>
     </>
   );
 }

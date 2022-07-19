@@ -1,10 +1,16 @@
 .navbar {
   background-color: black;
+  font-weight: bold;
+  font-size: 1.1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   ul {
+    margin: 0;
+    margin-left: 1rem;
     display: flex;
     list-style-type: none;
-    margin-top: 0;
-    margin-left: 1.5rem;
     li {
       color: white;
       display: flex;
@@ -23,6 +29,7 @@
         border-radius: 7px;
         width: 5rem;
         height: 2rem;
+        font-weight: bold;
       }
     }
     .user {
