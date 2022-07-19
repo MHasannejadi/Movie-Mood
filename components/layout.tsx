@@ -1,4 +1,6 @@
 import { ReactElement } from "react";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 import Navbar from "./navbar";
 
 type layoutProps = {
@@ -8,7 +10,9 @@ type layoutProps = {
 export default function Layout({ children }: layoutProps) {
   return (
     <>
-      <Navbar />
+      <Provider store={store}>
+        <Navbar />
+      </Provider>
       <main>{children}</main>
     </>
   );
