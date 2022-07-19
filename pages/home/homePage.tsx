@@ -18,7 +18,7 @@ function HomePage() {
   return (
     <div className={styles.home}>
       {/* {isLoading && <div>Loading...</div>} */}
-      {!isLoading && !isFetching && data.results.length > 0 && (
+      {!isLoading && !isFetching && data.results?.length > 0 && (
         <div>
           <h1>Popular Movies</h1>
           <ul>

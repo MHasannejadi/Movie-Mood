@@ -1,14 +1,15 @@
 .navbar {
   background-color: black;
   ul {
+    display: flex;
     list-style-type: none;
     padding-left: 1rem;
     margin-top: 0;
-    padding: 1rem;
     margin-left: 1.5rem;
     li {
       color: white;
-      display: inline;
+      display: flex;
+      align-items: center;
       margin: 1rem;
       transition: all 0.3s ease;
       &:hover {
@@ -22,6 +23,16 @@
         border-radius: 7px;
         width: 5rem;
         height: 2rem;
+      }
+    }
+    .user {
+      margin-left: auto;
+      margin-right: 1.5rem;
+      span {
+        margin-right: 1rem;
+      }
+      &:hover {
+        color: white;
       }
     }
   }

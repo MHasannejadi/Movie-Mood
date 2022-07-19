@@ -14,10 +14,14 @@ function Navbar() {
 
   const credentials = {
     key: apiKey,
-    session_id: sessionId,
+    session_id: sessionId || null,
   };
 
-  const { data: userData = {}, isLoading } = useGetUserDataQuery(credentials);
+  const {
+    data: userData = {},
+    refetch,
+    isLoading,
+  } = useGetUserDataQuery(credentials);
 
   useEffect(() => {
     if (userData.username) {
@@ -30,8 +34,10 @@ function Navbar() {
     setSessionId(session);
   }, []);
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
     localStorage.removeItem("session_id");
+    setSessionId(null);
+    refetch();
     setIsLogin(false);
   };
 
@@ -56,11 +62,16 @@ function Navbar() {
           <li>
             <SearchBar />
           </li>
-          <li>
-            <button onClick={loginClickHandler}>
-              {isLogin && <>Logout</>}
-              {!isLogin && <>Login</>}
-            </button>
+          <li className={styles.user}>
+            {!isLoading && (
+              <>
+                {isLogin && <span>{userData.username}</span>}
+                <button onClick={loginClickHandler}>
+                  {isLogin && "Logout"}
+                  {!isLogin && "Login"}
+                </button>
+              </>
+            )}
           </li>
         </ul>
       </nav>

@@ -8,6 +8,7 @@ import {
 } from "../../services/userApi";
 import { useRouter } from "next/router";
 import apiKey from "../../api/apiKey";
+import toast, { Toaster } from "react-hot-toast";
 
 interface MyFormValues {
   username: string;
@@ -18,11 +19,17 @@ export const LoginPage: React.FC<{}> = () => {
   const initialValues: MyFormValues = { username: "", password: "" };
   const router = useRouter();
 
-  const { data: request_token = null, isLoading: isLoadingToken } =
-    useCreateTokenQuery(apiKey);
+  const {
+    refetch,
+    data: request_token = null,
+    isLoading: isLoadingToken,
+  } = useCreateTokenQuery(apiKey);
   const [loginPost, { isLoading: isLoadingLogin }] = useLoginMutation();
   const [getSession, { isLoading: isLoadingSession }] =
     useCreateSessionMutation();
+
+  const errorNotify = () =>
+    toast.error("The information entered is not correct.");
 
   const submitHandler = async ({
     values,
@@ -31,29 +38,37 @@ export const LoginPage: React.FC<{}> = () => {
     values: MyFormValues;
     actions: any;
   }) => {
-    const { username, password } = values;
-    actions.setSubmitting(false);
-    if (!isLoadingToken) {
-      const loginResponse = await loginPost({
-        key: apiKey,
-        request_token: request_token.request_token,
-        username,
-        password,
-      }).unwrap();
-      if (loginResponse.success) {
-        const sessionResponse = await getSession({
+    try {
+      const { username, password } = values;
+      actions.setSubmitting(false);
+      if (!isLoadingToken) {
+        const loginResponse = await loginPost({
           key: apiKey,
-          request_token: loginResponse.request_token,
+          request_token: request_token.request_token,
+          username,
+          password,
         }).unwrap();
-        if (sessionResponse.success) {
-          localStorage.setItem("session_id", sessionResponse.session_id);
-          router.push("/");
+        console.log(loginResponse);
+        if (loginResponse.success) {
+          const sessionResponse = await getSession({
+            key: apiKey,
+            request_token: loginResponse.request_token,
+          }).unwrap();
+          if (sessionResponse.success) {
+            localStorage.setItem("session_id", sessionResponse.session_id);
+            router.push("/");
+          }
         }
       }
+    } catch {
+      refetch();
+      errorNotify();
     }
   };
+
   return (
     <div className={styles.login}>
+      <Toaster />
       {(isLoadingToken || isLoadingLogin || isLoadingSession) && (
         <div>Loading...</div>
       )}
