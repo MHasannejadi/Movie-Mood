@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect } from "react";
+import apiKey from "../../api/apiKey";
 import MovieCard from "../../components/movieCard/movieCard";
 import { useGetPopularMoviesQuery } from "../../services/movieApi";
 import styles from "./home.module.scss";
@@ -13,7 +14,7 @@ function HomePage() {
     data = [],
     isLoading,
     isFetching,
-  } = useGetPopularMoviesQuery("bd422e7b500e20ac0bad0f395328407c");
+  } = useGetPopularMoviesQuery(apiKey);
 
   return (
     <div className={styles.home}>

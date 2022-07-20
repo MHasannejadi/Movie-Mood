@@ -10,7 +10,7 @@ function MovieCard({ movie }: { movie: any }) {
           <Link href={`/movie/${movie.id}`}>
             <img
               src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`}
-              alt=""
+              alt={movie.title}
             ></img>
           </Link>{" "}
           <div className={styles.detail}>
