@@ -1,0 +1,19 @@
+.home {
+  h1 {
+    text-align: center;
+  }
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 0;
+    li {
+      margin: 0.3rem;
+      margin-bottom: 2rem;
+      flex: 0 0 17%;
+      border: #8080802e solid 0.06rem;
+      border-radius: 0.5rem;
+    }
+  }
+}
