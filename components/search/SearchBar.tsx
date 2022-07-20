@@ -1,8 +1,6 @@
-import styles from "./search.module.scss";
-import { Formik, Form, Field, FormikProps } from "formik";
-import { useSearchQuery } from "../../services/movieApi";
-import { useEffect, useRef, useState } from "react";
-import apiKey from "../../api/apiKey";
+import styles from "./search-bar.module.scss";
+import { Formik, Form, Field } from "formik";
+import { useRouter } from "next/router";
 
 interface MyFormValues {
   query: string;
@@ -10,17 +8,7 @@ interface MyFormValues {
 
 function SearchBar() {
   const initialValues: MyFormValues = { query: "" };
-  const [skip, setSkip] = useState(true);
-  const formRef = useRef<FormikProps<any>>(null);
-  const {
-    refetch,
-    data = null,
-    isLoading: isLoadingSearch,
-  } = useSearchQuery(
-    { query: formRef.current?.values.query, key: apiKey },
-    { skip }
-  );
-
+  const router = useRouter();
   const submitHandler = async ({
     values,
     actions,
@@ -32,22 +20,14 @@ function SearchBar() {
       const { query } = values;
       actions.setSubmitting(false);
       if (query) {
-        refetch();
-        console.log(data);
+        router.push(`/movie/search?q=${query}`);
       }
     } catch {}
   };
 
-  useEffect(() => {
-    if (formRef.current) {
-      console.log(formRef.current.values);
-    }
-  }, [formRef.current?.values]);
-
   return (
     <div className={styles.search}>
       <Formik
-        innerRef={formRef}
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           submitHandler({ values, actions });
