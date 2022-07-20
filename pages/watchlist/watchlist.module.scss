@@ -1,6 +1,8 @@
 .watchlist-page {
   h1 {
     text-align: center;
+    margin: 0.8rem;
+    font-size: 1.6rem;
   }
   ul {
     list-style-type: none;
@@ -8,10 +10,11 @@
     flex-wrap: wrap;
     justify-content: center;
     padding-left: 0;
+    margin-top: 0.8rem;
     li {
       margin: 5px;
       margin-bottom: 2rem;
-      flex: 0 0 17%;
+      flex: 0 0 12rem;
       border: #8080802e solid 1px;
       border-radius: 8px;
     }
