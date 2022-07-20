@@ -9,11 +9,9 @@ import toast, { Toaster } from "react-hot-toast";
 function MovieCard({
   movie,
   addOrRemove,
-  refetch,
 }: {
   movie: any;
   addOrRemove: string;
-  refetch: () => void;
 }) {
   const [sessionId, setSessionId] = useState<string | null>();
   const [userData, setUserData] = useState<any>();
@@ -40,13 +38,13 @@ function MovieCard({
         if (watchlistResponse.success) {
           if (command === "add") {
             toast.success("Successfully added to watchlist");
-          } else {
-            refetch();
           }
         }
       } catch (error: any) {
         toast.error(error.data.status_message);
       }
+    } else {
+      toast.error("Please login to add to watchlist");
     }
   };
 

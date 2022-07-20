@@ -63,7 +63,6 @@ export const LoginPage: React.FC<{}> = () => {
         }
       }
     } catch {
-      refetch();
       errorNotify();
     }
   };

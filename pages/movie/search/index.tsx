@@ -36,7 +36,11 @@ const SearchPage: NextPageWithLayout = () => {
             <h1>Results for &quot;{router.query.q}&quot;</h1>
             <ul>
               {data.results.map((movie: any) => (
-                <MovieCard key={movie.id} movie={movie} />
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  addOrRemove="add"
+                />
               ))}
             </ul>
           </div>

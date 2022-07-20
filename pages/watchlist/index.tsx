@@ -11,19 +11,7 @@ const WatchlistPage: NextPageWithLayout = () => {
   const [sessionId, setSessionId] = useState<string | null>();
   const [userData, setUserData] = useState<any>();
 
-  useEffect(() => {
-    setSessionId(localStorage.getItem("session_id"));
-    setUserData(JSON.parse(localStorage.getItem("user_data") || ""));
-  }, []);
-
-  useEffect(() => {
-    if (userData) {
-      setSkip(false);
-    }
-  }, [userData]);
-
   const {
-    refetch,
     data = null,
     isLoading: isLoadingSearch,
   } = useGetWatchListQuery(
@@ -34,6 +22,16 @@ const WatchlistPage: NextPageWithLayout = () => {
     },
     { skip }
   );
+  useEffect(() => {
+    setSessionId(localStorage.getItem("session_id"));
+    setUserData(JSON.parse(localStorage.getItem("user_data") || ""));
+  }, []);
+
+  useEffect(() => {
+    if (userData) {
+      setSkip(false);
+    }
+  }, [userData]);
 
   return (
     <div className={styles["watchlist-page"]}>
@@ -49,7 +47,6 @@ const WatchlistPage: NextPageWithLayout = () => {
                   addOrRemove="remove"
                   key={movie.id}
                   movie={movie}
-                  refetch={refetch}
                 />
               ))}
             </ul>

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import apiKey from "../../api/apiKey";
 import { useGetUserDataQuery } from "../../services/userApi";
-import SearchBar from "../search/SearchBar";
+import SearchBar from "../search/searchBar/SearchBar";
 import styles from "./navbar.module.scss";
 
 function Navbar() {
@@ -44,7 +44,6 @@ function Navbar() {
   const logoutHandler = async () => {
     localStorage.removeItem("session_id");
     setSessionId(null);
-    // refetch();
     setIsLogin(false);
   };
 
@@ -63,9 +62,11 @@ function Navbar() {
           <li>
             <Link href="/">Home</Link>
           </li>
-          <li>
-            <Link href="/watchlist">Watch List</Link>
-          </li>
+          {isLogin && (
+            <li>
+              <Link href="/watchlist">Watchlist</Link>
+            </li>
+          )}
           <li>
             <SearchBar />
           </li>
