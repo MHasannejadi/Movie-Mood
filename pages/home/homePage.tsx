@@ -20,7 +20,12 @@ function HomePage() {
           <h1>Popular Movies</h1>
           <ul>
             {data.results.map((movie: any) => (
-              <MovieCard key={movie.id} movie={movie} addOrRemove="add" />
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                addOrRemove="add"
+                refetch={() => {}}
+              />
             ))}
           </ul>
         </div>
