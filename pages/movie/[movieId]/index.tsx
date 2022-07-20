@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import type { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import apiKey from "../../../api/apiKey";
 import Layout from "../../../components/layout";
@@ -9,12 +9,19 @@ import styles from "./movie.module.scss";
 
 const MoviePage: NextPageWithLayout = () => {
   const router = useRouter();
+  const [skip, setSkip] = useState(true);
   const {
     data: movie = {},
     isLoading,
     isFetching,
-  } = useGetMovieQuery({ key: apiKey, id: router.query.movieId });
+  } = useGetMovieQuery({ key: apiKey, id: router.query.movieId }, { skip });
 
+  useEffect(() => {
+    if (router.query.movieId) {
+      setSkip(false);
+    }
+  }, [router.query.movieId]);
+  
   return (
     <>
       {isLoading && <div>Loading...</div>}
