@@ -9,6 +9,7 @@ import {
 import { useRouter } from "next/router";
 import apiKey from "../../api/apiKey";
 import toast, { Toaster } from "react-hot-toast";
+import { useState, useEffect } from "react";
 
 interface MyFormValues {
   username: string;
@@ -19,6 +20,8 @@ export const LoginPage: React.FC<{}> = () => {
   const initialValues: MyFormValues = { username: "", password: "" };
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const {
     refetch,
     data: request_token = null,
@@ -27,6 +30,10 @@ export const LoginPage: React.FC<{}> = () => {
   const [loginPost, { isLoading: isLoadingLogin }] = useLoginMutation();
   const [getSession, { isLoading: isLoadingSession }] =
     useCreateSessionMutation();
+
+  useEffect(() => {
+    setIsLoading(isLoadingToken || isLoadingLogin || isLoadingSession);
+  }, [isLoadingLogin, isLoadingSession, isLoadingToken]);
 
   const errorNotify = () =>
     toast.error("The information entered is not correct.");
@@ -48,7 +55,6 @@ export const LoginPage: React.FC<{}> = () => {
           username,
           password,
         }).unwrap();
-        console.log(loginResponse);
         if (loginResponse.success) {
           const sessionResponse = await getSession({
             key: apiKey,
@@ -69,10 +75,9 @@ export const LoginPage: React.FC<{}> = () => {
   return (
     <div className={styles.login}>
       <Toaster />
-      {(isLoadingToken || isLoadingLogin || isLoadingSession) && (
+      {isLoading ? (
         <div>Loading...</div>
-      )}
-      {!isLoadingToken && !isLoadingLogin && !isLoadingSession && (
+      ) : (
         <Formik
           initialValues={initialValues}
           onSubmit={(values, actions) => {

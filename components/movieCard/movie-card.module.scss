@@ -5,7 +5,7 @@
   height: 100%;
   img {
     object-fit: cover;
-    border-radius: 8px 8px 0 0;
+    border-radius: 0.5rem 0.5rem 0 0;
     cursor: pointer;
   }
   .title {
@@ -36,8 +36,8 @@
     font-weight: bold;
     font-size: 0.9rem;
   }
-  .detail {
-    padding: 0 13px !important;
+  li.detail {
+    padding: 0 0.8rem;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -46,8 +46,8 @@
     background: red;
     border: none;
     color: white;
-    padding: 10px;
-    border-radius: 0 0 5px 5px;
+    padding: 0.6rem;
+    border-radius: 0 0 0.3rem 0.3rem;
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
