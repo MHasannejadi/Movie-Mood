@@ -1,0 +1,19 @@
+.watchlist-page {
+  h1 {
+    text-align: center;
+  }
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 0;
+    li {
+      margin: 5px;
+      margin-bottom: 2rem;
+      flex: 0 0 17%;
+      border: #8080802e solid 1px;
+      border-radius: 8px;
+    }
+  }
+}

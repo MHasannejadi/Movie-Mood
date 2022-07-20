@@ -29,7 +29,6 @@ const ActorPage: NextPageWithLayout = () => {
           <section className={styles["actor-page__header__detail-section"]}>
             <h1>{actor.name}</h1>
             <p>{actor.biography}</p>
-            {/* <button>Add to Watch List</button> */}
           </section>
         </div>
       )}

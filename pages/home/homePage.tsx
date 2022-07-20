@@ -10,11 +10,7 @@ function HomePage() {
   useEffect(() => {
     token = localStorage.getItem("session_id");
   }, []);
-  const {
-    data = [],
-    isLoading,
-    isFetching,
-  } = useGetPopularMoviesQuery(apiKey);
+  const { data = [], isLoading, isFetching } = useGetPopularMoviesQuery(apiKey);
 
   return (
     <div className={styles.home}>
@@ -24,7 +20,7 @@ function HomePage() {
           <h1>Popular Movies</h1>
           <ul>
             {data.results.map((movie: any) => (
-              <MovieCard key={movie.id} movie={movie} />
+              <MovieCard key={movie.id} movie={movie} addOrRemove="add" />
             ))}
           </ul>
         </div>
