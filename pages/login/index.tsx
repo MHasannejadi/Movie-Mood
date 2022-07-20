@@ -19,9 +19,7 @@ interface MyFormValues {
 export const LoginPage: React.FC<{}> = () => {
   const initialValues: MyFormValues = { username: "", password: "" };
   const router = useRouter();
-
-  const [isLoading, setIsLoading] = useState(true);
-
+  let isLoading = true;
   const {
     refetch,
     data: request_token = null,
@@ -31,9 +29,7 @@ export const LoginPage: React.FC<{}> = () => {
   const [getSession, { isLoading: isLoadingSession }] =
     useCreateSessionMutation();
 
-  useEffect(() => {
-    setIsLoading(isLoadingToken || isLoadingLogin || isLoadingSession);
-  }, [isLoadingLogin, isLoadingSession, isLoadingToken]);
+  isLoading = isLoadingToken || isLoadingLogin || isLoadingSession;
 
   const errorNotify = () =>
     toast.error("The information entered is not correct.");
