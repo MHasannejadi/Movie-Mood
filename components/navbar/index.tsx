@@ -58,7 +58,7 @@ function Navbar() {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/watch-list">Watch List</Link>
+            <Link href="/watchlist">Watch List</Link>
           </li>
           <li>
             <SearchBar />

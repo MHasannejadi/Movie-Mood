@@ -6,10 +6,17 @@ import { useAddToWatchListMutation } from "../../services/userApi";
 import apiKey from "../../api/apiKey";
 import toast, { Toaster } from "react-hot-toast";
 
-function MovieCard({ movie }: { movie: any }) {
+function MovieCard({
+  movie,
+  addOrRemove,
+  refetch,
+}: {
+  movie: any;
+  addOrRemove: string;
+  refetch: () => void;
+}) {
   const [sessionId, setSessionId] = useState<string | null>();
   const [userData, setUserData] = useState<any>();
-  const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
     setSessionId(localStorage.getItem("session_id"));
@@ -19,7 +26,7 @@ function MovieCard({ movie }: { movie: any }) {
   const [addToWatchlist, { isLoading: isLoadingWatchlist }] =
     useAddToWatchListMutation();
 
-  const addToWatchlistHandler = async () => {
+  const addToWatchlistHandler = async (command: string) => {
     if (sessionId && userData) {
       try {
         const watchlistResponse = await addToWatchlist({
@@ -28,10 +35,14 @@ function MovieCard({ movie }: { movie: any }) {
           session_id: sessionId,
           media_id: movie.id,
           media_type: "movie",
-          watchlist: true,
+          watchlist: command === "add" ? true : false,
         }).unwrap();
         if (watchlistResponse.success) {
-          setIsSelected(true);
+          if (command === "add") {
+            toast.success("Successfully added to watchlist");
+          } else {
+            refetch();
+          }
         }
       } catch (error: any) {
         toast.error(error.data.status_message);
@@ -42,7 +53,6 @@ function MovieCard({ movie }: { movie: any }) {
   return (
     <>
       <li key={movie.id}>
-        {/* <Toaster /> */}
         <article className={styles.card}>
           <Link href={`/movie/${movie.id}`}>
             <img
@@ -57,10 +67,15 @@ function MovieCard({ movie }: { movie: any }) {
             <p>{movie.overview}</p>
             <span className={styles.rate}>Rate: {movie.vote_average}</span>
           </div>
-          <button onClick={addToWatchlistHandler}>Add to Watch List</button>
-          {/* {!isSelected && (
-          )} */}
-          {/* {isSelected && <button>Remove from Watch List</button>} */}
+          {addOrRemove === "add" ? (
+            <button onClick={() => addToWatchlistHandler("add")}>
+              {isLoadingWatchlist ? "Loading..." : "Add to Watchlist"}
+            </button>
+          ) : (
+            <button onClick={() => addToWatchlistHandler("remove")}>
+              {isLoadingWatchlist ? "Loading..." : "Remove from Watchlist"}
+            </button>
+          )}
         </article>
       </li>
     </>
