@@ -8,9 +8,9 @@ function SearchBox({ results, query }: { results: any; query: any }) {
         <ul>
           {results?.length ? (
             results?.map((movie: any) => (
-              <li key={movie.id}>
-                <Link href={`/movie/${movie.id}`}>{movie.title}</Link>
-              </li>
+              <Link key={movie.id} href={`/movie/${movie.id}`}>
+                <li>{movie.title}</li>
+              </Link>
             ))
           ) : (
             <li>
@@ -18,9 +18,9 @@ function SearchBox({ results, query }: { results: any; query: any }) {
             </li>
           )}
           {results?.length > 0 && (
-            <li className={styles.more}>
-              <Link href={`/movie/search?q=${query}`}>More results</Link>
-            </li>
+            <Link href={`/movie/search?q=${query}`}>
+              <li className={styles.more}>More results</li>
+            </Link>
           )}
         </ul>
       </div>

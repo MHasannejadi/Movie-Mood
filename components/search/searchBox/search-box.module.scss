@@ -2,19 +2,27 @@
   position: absolute;
   top: 3.1rem;
   background: white;
+  border: 1px solid rgb(241 241 241);
   border-radius: 0 0 0.5rem 0.5rem;
   width: 11.9rem;
+  margin-left: 0.05rem;
+  overflow: hidden;
   ul {
     display: block;
     padding: 0;
     margin: 0;
+
     li {
+      color: black;
       font-size: 0.9rem;
       font-weight: normal;
-      color: black;
-      border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+      border-bottom: 1px solid rgb(241 241 241);
+      padding: 0.5rem 0.4rem;
+      cursor: pointer;
       margin: 0;
-      a,
+      &:hover {
+        background: #efefef;
+      }
       span {
         margin: 0.5rem 0.4rem;
       }

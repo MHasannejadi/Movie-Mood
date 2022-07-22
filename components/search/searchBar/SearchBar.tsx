@@ -71,7 +71,7 @@ function SearchBar() {
   };
 
   return (
-    <div className={styles.search}>
+    <div className={styles.search} onBlur={() => setIsActiveBox(false)}>
       <Formik
         initialValues={initialValues}
         innerRef={formRef}
@@ -90,7 +90,6 @@ function SearchBar() {
           <button type="submit">Search</button>
         </Form>
       </Formik>
-      {/* {isActiveBox && ()} */}
       {isActiveBox && (
         <SearchBox
           results={data.results.slice(0, 5)}
