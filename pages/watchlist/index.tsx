@@ -11,10 +11,7 @@ const WatchlistPage: NextPageWithLayout = () => {
   const [sessionId, setSessionId] = useState<string | null>();
   const [userData, setUserData] = useState<any>();
 
-  const {
-    data = null,
-    isLoading: isLoadingSearch,
-  } = useGetWatchListQuery(
+  const { data = null, isLoading: isLoadingSearch } = useGetWatchListQuery(
     {
       account_id: userData?.id,
       key: apiKey,
@@ -37,21 +34,17 @@ const WatchlistPage: NextPageWithLayout = () => {
     <div className={styles["watchlist-page"]}>
       {isLoadingSearch ? (
         <div>Loading...</div>
+      ) : data?.results?.length > 0 ? (
+        <div>
+          <h1>Your Watchlist</h1>
+          <ul>
+            {data.results.map((movie: any) => (
+              <MovieCard addOrRemove="remove" key={movie.id} movie={movie} />
+            ))}
+          </ul>
+        </div>
       ) : (
-        data?.results?.length > 0 && (
-          <div>
-            <h1>Your Watchlist</h1>
-            <ul>
-              {data.results.map((movie: any) => (
-                <MovieCard
-                  addOrRemove="remove"
-                  key={movie.id}
-                  movie={movie}
-                />
-              ))}
-            </ul>
-          </div>
-        )
+        <h1>Your watchlist is empty</h1>
       )}
     </div>
   );
