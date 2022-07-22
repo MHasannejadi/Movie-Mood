@@ -38,17 +38,8 @@ export interface AddToWatchListResponse {
 export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://api.themoviedb.org/3/",
-    prepareHeaders: (headers) => {
-      let token = null;
-      if (typeof window !== "undefined") {
-        token = localStorage.getItem("token");
-      }
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
   }),
+  tagTypes: ["Post"],
   endpoints: (builder) => ({
     createToken: builder.query({
       query: (key) => `authentication/token/new?api_key=${key}`,
@@ -90,10 +81,21 @@ export const userApi = createApi({
           watchlist: credentials.watchlist,
         },
       }),
+      invalidatesTags: [{ type: "Post", id: "WATCHLIST" }],
     }),
     getWatchList: builder.query({
       query: (credentials) =>
         `account/${credentials.account_id}/watchlist/movies?api_key=${credentials.key}&session_id=${credentials.session_id}&sort_by=created_at.asc&page=1`,
+      providesTags: (data: any) =>
+        data.results
+          ? [
+              ...data.results.map(({ id }: { id: any }) => ({
+                type: "Post" as const,
+                id,
+              })),
+              { type: "Post", id: "WATCHLIST" },
+            ]
+          : [{ type: "Post", id: "WATCHLIST" }],
     }),
   }),
 });
