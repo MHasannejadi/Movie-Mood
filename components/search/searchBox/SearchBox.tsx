@@ -4,7 +4,7 @@ import styles from "./search-box.module.scss";
 function SearchBox({ results, query }: { results: any; query: any }) {
   return (
     <>
-      <div id={styles["search-box"]}>
+      <div id={styles.search_box}>
         <ul>
           {results?.length ? (
             results?.map((movie: any) => (

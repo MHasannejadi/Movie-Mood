@@ -20,7 +20,7 @@ const SearchPage: NextPageWithLayout = () => {
   );
 
   return (
-    <div className={styles["search-page"]}>
+    <div className={styles.search_page}>
       {isLoadingSearch ? (
         <Loader />
       ) : (

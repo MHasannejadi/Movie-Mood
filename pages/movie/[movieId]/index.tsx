@@ -58,15 +58,15 @@ const MoviePage: NextPageWithLayout = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <main className={styles["movie-page"]}>
-          <div className={styles["movie-page__header"]}>
-            <section className={styles["movie-page__header__image-section"]}>
+        <main className={styles.movie_page}>
+          <div className={styles.movie_page__header}>
+            <section className={styles.movie_page__header__image_section}>
               <img
                 src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
                 alt={movie.title}
               ></img>
             </section>
-            <section className={styles["movie-page__header__detail-section"]}>
+            <section className={styles.movie_page__header__detail_section}>
               <h1>{movie.title}</h1>
               <p>{movie.overview}</p>
               <button onClick={() => addToWatchlistHandler("add")}>

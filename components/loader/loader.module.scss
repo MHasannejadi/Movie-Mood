@@ -1,4 +1,4 @@
-#wifi-loader {
+.loader {
   --background: #62abff;
   --front-color: #2993f0;
   --back-color: #c3c8de;
@@ -32,7 +32,7 @@
         stroke: var(--front-color);
       }
     }
-    &.circle-outer {
+    &.outer {
       height: 86px;
       width: 86px;
       circle {
@@ -45,7 +45,7 @@
         }
       }
     }
-    &.circle-middle {
+    &.middle {
       height: 60px;
       width: 60px;
       circle {
@@ -58,7 +58,7 @@
         }
       }
     }
-    &.circle-inner {
+    &.inner {
       height: 34px;
       width: 34px;
       circle {

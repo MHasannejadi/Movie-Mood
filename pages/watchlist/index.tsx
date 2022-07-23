@@ -25,7 +25,7 @@ const WatchlistPage: NextPageWithLayout = () => {
   }, []);
 
   return (
-    <div className={styles["watchlist-page"]}>
+    <div className={styles.watchlist_page}>
       {isLoadingSearch ? (
         <Loader />
       ) : data && data?.results?.length > 0 ? (

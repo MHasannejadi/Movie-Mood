@@ -10,24 +10,24 @@ import styles from "./actor.module.scss";
 
 const ActorPage: NextPageWithLayout = () => {
   const router = useRouter();
-  const {
-    data: actor = {},
-    isLoading,
-  } = useGetActorQuery({ key: apiKey, id: router.query.actorId });
+  const { data: actor = {}, isLoading } = useGetActorQuery({
+    key: apiKey,
+    id: router.query.actorId,
+  });
 
   return (
-    <main className={styles["actor-page"]}>
+    <main className={styles.actor_page}>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className={styles["actor-page__header"]}>
-          <section className={styles["actor-page__header__image-section"]}>
+        <div className={styles.actor_page__header}>
+          <section className={styles.actor_page__header__image_section}>
             <img
               src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${actor.profile_path}`}
               alt={actor.name}
             ></img>
           </section>
-          <section className={styles["actor-page__header__detail-section"]}>
+          <section className={styles.actor_page__header__detail_section}>
             <h1>{actor.name}</h1>
             <p>{actor.biography}</p>
           </section>

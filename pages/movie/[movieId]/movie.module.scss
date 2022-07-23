@@ -1,4 +1,4 @@
-.movie-page {
+.movie_page {
   &__header {
     display: flex;
     justify-content: center;
@@ -6,7 +6,7 @@
     section {
       display: inline-block;
     }
-    &__image-section {
+    &__image_section {
       width: 40%;
       text-align: center;
       img {
@@ -15,7 +15,7 @@
         border-radius: 10px;
       }
     }
-    &__detail-section {
+    &__detail_section {
       width: 60%;
       display: flex;
       justify-content: center;
