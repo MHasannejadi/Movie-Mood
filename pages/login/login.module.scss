@@ -20,6 +20,8 @@
 
     label {
       margin-top: 1rem;
+      font-weight: bold;
+      font-size: 0.9rem;
     }
 
     input {
@@ -28,13 +30,17 @@
       width: 100%;
       padding: 1rem;
       margin-top: 0.5rem;
-      border: 0.06rem solid #ccc;
+      border: 0.06rem solid rgb(227, 227, 227);
       border-radius: 0.19rem;
       margin-bottom: 0.625rem;
       font-size: 1rem;
 
       &:focus {
         outline: none;
+      }
+
+      &::placeholder {
+        font-size: 0.9rem;
       }
     }
 
@@ -44,8 +50,8 @@
       margin-top: 0.5rem;
       width: 100%;
       padding: 1rem;
-      margin-top: 0.5rem;
-      border: 0.06rem solid #ccc;
+      margin-top: 2rem;
+      border: none;
       border-radius: 0.19rem;
       margin-bottom: 0.625rem;
       font-weight: bold;

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import type { ReactElement } from "react";
 import apiKey from "../../../../api/apiKey";
 import Layout from "../../../../components/layout";
+import Loader from "../../../../components/loader/loader";
 import { useGetActorQuery } from "../../../../services/actorApi";
 import { NextPageWithLayout } from "../../../_app";
 import styles from "./actor.module.scss";
@@ -12,13 +13,13 @@ const ActorPage: NextPageWithLayout = () => {
   const {
     data: actor = {},
     isLoading,
-    isFetching,
   } = useGetActorQuery({ key: apiKey, id: router.query.actorId });
 
   return (
     <main className={styles["actor-page"]}>
-      {isLoading && <div>Loading...</div>}
-      {!isLoading && !isFetching && (
+      {isLoading ? (
+        <Loader />
+      ) : (
         <div className={styles["actor-page__header"]}>
           <section className={styles["actor-page__header__image-section"]}>
             <img

@@ -34,6 +34,7 @@ function MovieCard({
           media_id: movie.id,
           media_type: "movie",
           watchlist: command === "add" ? true : false,
+          movie_data: movie,
         })
           .unwrap()
           .then((res) => {

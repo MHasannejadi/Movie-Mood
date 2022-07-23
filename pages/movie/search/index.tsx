@@ -6,6 +6,7 @@ import MovieCard from "../../../components/movieCard/movieCard";
 import styles from "./search-page.module.scss";
 import Layout from "../../../components/layout";
 import { NextPageWithLayout } from "../../_app";
+import Loader from "../../../components/loader/loader";
 
 const SearchPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const SearchPage: NextPageWithLayout = () => {
   return (
     <div className={styles["search-page"]}>
       {isLoadingSearch ? (
-        <div>Loading...</div>
+        <Loader />
       ) : (
         data?.results?.length > 0 && (
           <div>

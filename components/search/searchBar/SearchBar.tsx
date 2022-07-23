@@ -1,7 +1,7 @@
 import styles from "./search-bar.module.scss";
 import { Formik, Form, Field, FormikProps } from "formik";
 import { useRouter } from "next/router";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import apiKey from "../../../api/apiKey";
 import { useSearchQuery } from "../../../services/movieApi";
 import SearchBox from "../searchBox/SearchBox";
@@ -52,7 +52,7 @@ function SearchBar() {
     if (formRef.current?.values.query === "") {
       setIsActiveBox(false);
     }
-  }, [formRef.current]);
+  }, []);
 
   const submitHandler = ({
     values,

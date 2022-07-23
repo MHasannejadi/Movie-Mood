@@ -8,14 +8,11 @@ import { useGetMovieQuery } from "../../../services/movieApi";
 import styles from "./movie.module.scss";
 import { useAddToWatchListMutation } from "../../../services/userApi";
 import toast from "react-hot-toast";
+import Loader from "../../../components/loader/loader";
 
 const MoviePage: NextPageWithLayout = () => {
   const router = useRouter();
-  const {
-    data: movie = {},
-    isLoading,
-    isFetching,
-  } = useGetMovieQuery(
+  const { data: movie = {}, isLoading } = useGetMovieQuery(
     { key: apiKey, id: router.query.movieId },
     { skip: !router.query.movieId }
   );
@@ -41,6 +38,7 @@ const MoviePage: NextPageWithLayout = () => {
           media_id: movie.id,
           media_type: "movie",
           watchlist: command === "add" ? true : false,
+          movie_data: movie,
         }).unwrap();
         if (watchlistResponse.success) {
           if (command === "add") {
@@ -57,8 +55,9 @@ const MoviePage: NextPageWithLayout = () => {
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
-      {!isLoading && !isFetching && (
+      {isLoading ? (
+        <Loader />
+      ) : (
         <main className={styles["movie-page"]}>
           <div className={styles["movie-page__header"]}>
             <section className={styles["movie-page__header__image-section"]}>

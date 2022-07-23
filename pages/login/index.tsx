@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import apiKey from "../../api/apiKey";
 import toast, { Toaster } from "react-hot-toast";
 import { useState, useEffect } from "react";
+import Loader from "../../components/loader/loader";
 
 interface MyFormValues {
   username: string;
@@ -62,8 +63,10 @@ export const LoginPage: React.FC<{}> = () => {
           }
         }
       }
-    } catch {
-      errorNotify();
+    } catch (error: any) {
+      if (error?.data?.status_code === 33) {
+        refetch();
+      }
     }
   };
 
@@ -71,7 +74,7 @@ export const LoginPage: React.FC<{}> = () => {
     <div className={styles.login}>
       <Toaster />
       {isLoading ? (
-        <div>Loading...</div>
+        <Loader />
       ) : (
         <Formik
           initialValues={initialValues}

@@ -5,6 +5,7 @@ import Layout from "../../components/layout";
 import MovieCard from "../../components/movieCard/movieCard";
 import { useGetWatchListQuery } from "../../services/userApi";
 import apiKey from "../../api/apiKey";
+import Loader from "../../components/loader/loader";
 
 const WatchlistPage: NextPageWithLayout = () => {
   const [sessionId, setSessionId] = useState<string | null>();
@@ -26,12 +27,12 @@ const WatchlistPage: NextPageWithLayout = () => {
   return (
     <div className={styles["watchlist-page"]}>
       {isLoadingSearch ? (
-        <div>Loading...</div>
-      ) : data?.results?.length > 0 ? (
+        <Loader />
+      ) : data && data?.results?.length > 0 ? (
         <div>
           <h1>Your Watchlist</h1>
           <ul>
-            {data.results.map((movie: any) => (
+            {data?.results.map((movie: any) => (
               <MovieCard addOrRemove="remove" key={movie.id} movie={movie} />
             ))}
           </ul>
