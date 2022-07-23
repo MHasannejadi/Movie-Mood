@@ -8,15 +8,7 @@ export const movieApi = createApi({
       query: (key) =>
         `discover/movie/?api_key=${key}&sort_by=popularity.desc&adult=false`,
     }),
-    getMovie: builder.query({
-      query: (data) => `movie/${data.id}?api_key=${data.key}`,
-    }),
-    search: builder.query({
-      query: (data) =>
-        `search/movie?api_key=${data.key}&query=${data.query}&language=en-US&page=1&include_adult=false`,
-    }),
   }),
 });
 
-export const { useGetPopularMoviesQuery, useGetMovieQuery, useSearchQuery } =
-  movieApi;
+export const { useGetPopularMoviesQuery } = movieApi;

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useEffect } from "react";
-import apiKey from "../../api/apiKey";
 import MovieCard from "../../components/movieCard/movieCard";
 import { useGetPopularMoviesQuery } from "../../services/movieApi";
 import styles from "./home.module.scss";
@@ -10,7 +9,11 @@ function HomePage() {
   useEffect(() => {
     token = localStorage.getItem("session_id");
   }, []);
-  const { data = [], isLoading, isFetching } = useGetPopularMoviesQuery(apiKey);
+  const {
+    data = [],
+    isLoading,
+    isFetching,
+  } = useGetPopularMoviesQuery("bd422e7b500e20ac0bad0f395328407c");
 
   return (
     <div className={styles.home}>
@@ -20,12 +23,7 @@ function HomePage() {
           <h1>Popular Movies</h1>
           <ul>
             {data.results.map((movie: any) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-                addOrRemove="add"
-                refetch={() => {}}
-              />
+              <MovieCard key={movie.id} movie={movie} />
             ))}
           </ul>
         </div>
