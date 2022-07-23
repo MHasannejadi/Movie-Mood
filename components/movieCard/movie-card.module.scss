@@ -4,15 +4,17 @@
   text-align: center;
   height: 100%;
   img {
+    width: 12rem;
     object-fit: cover;
     border-radius: 0.5rem 0.5rem 0 0;
     cursor: pointer;
   }
   .title {
     cursor: pointer;
-    margin-top: 0.7rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.4rem;
     font-weight: bold;
+    font-size: 0.95rem;
   }
   a {
     text-overflow: ellipsis;
@@ -25,19 +27,19 @@
     text-overflow: ellipsis;
     text-align: justify;
     text-justify: inter-word;
-    align-self: flex-end;
     margin-bottom: 0;
     margin-top: auto;
     font-size: 0.9rem;
+    line-height: 1.1rem;
   }
   .rate {
     text-align: left;
-    margin: 1rem 0 1.2rem 0;
+    margin: 0.5rem 0 0.6rem 0;
     font-weight: bold;
     font-size: 0.9rem;
   }
-  li.detail {
-    padding: 0 0.8rem;
+  .detail {
+    padding: 0 0.6rem;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -49,7 +51,7 @@
     padding: 0.6rem;
     border-radius: 0 0 0.3rem 0.3rem;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
   }
 }
