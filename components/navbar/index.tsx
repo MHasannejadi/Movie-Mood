@@ -72,8 +72,7 @@ function Navbar() {
               <>
                 {isLogin && <span>{userData.username}</span>}
                 <button onClick={loginClickHandler}>
-                  {isLogin && "Logout"}
-                  {!isLogin && "Login"}
+                  {isLogin ? "Logout" : "Login"}
                 </button>
               </>
             )}
