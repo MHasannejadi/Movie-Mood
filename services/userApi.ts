@@ -21,25 +21,20 @@ export interface GetSessionResponse {
   session_id: string;
 }
 
-export interface AddToWatchListRequest {
-  account_id: string;
-  session_id: string;
-  key: string;
-  media_type: string;
-  media_id: number;
-  watchlist: boolean;
-}
-export interface AddToWatchListResponse {
-  success: boolean;
-  status_code: number;
-  status_message: string;
-}
-
 export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://api.themoviedb.org/3/",
+    prepareHeaders: (headers) => {
+      let token = null;
+      if (typeof window !== "undefined") {
+        token = localStorage.getItem("token");
+      }
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
-  tagTypes: ["Post"],
   endpoints: (builder) => ({
     createToken: builder.query({
       query: (key) => `authentication/token/new?api_key=${key}`,
@@ -68,57 +63,6 @@ export const userApi = createApi({
       query: (credentials) =>
         `account?api_key=${credentials.key}&session_id=${credentials.session_id}`,
     }),
-    addToWatchList: builder.mutation<
-      AddToWatchListResponse,
-      AddToWatchListRequest
-    >({
-      query: (credentials) => ({
-        url: `account/${credentials.account_id}/watchlist?api_key=${credentials.key}&session_id=${credentials.session_id}`,
-        method: "POST",
-        body: {
-          media_type: credentials.media_type,
-          media_id: credentials.media_id,
-          watchlist: credentials.watchlist,
-        },
-      }),
-      // async onQueryStarted(
-      //   { media_id, ...patch },
-      //   { dispatch, queryFulfilled }
-      // ) {
-      //   console.log("onQueryStarted: ", patch);
-      //   let patchResult = null;
-      //   if (!patch.watchlist) {
-      //     patchResult = dispatch(
-      //       userApi.util.updateQueryData("getWatchList", media_id, (draft) => {
-      //         console.log("Update: ", draft);
-      //         delete draft.media_id;
-      //       })
-      //     );
-      //   }
-      //   try {
-      //     await queryFulfilled;
-      //   } catch {
-      //     if (!patch.watchlist) {
-      //       patchResult.undo();
-      //     }
-      //   }
-      // },
-      invalidatesTags: [{ type: "Post", id: "WATCHLIST" }],
-    }),
-    getWatchList: builder.query({
-      query: (credentials) =>
-        `account/${credentials.account_id}/watchlist/movies?api_key=${credentials.key}&session_id=${credentials.session_id}&sort_by=created_at.asc&page=1`,
-      providesTags: (data: any) =>
-        data?.results
-          ? [
-              ...data.results.map(({ id }: { id: any }) => ({
-                type: "Post" as const,
-                id,
-              })),
-              { type: "Post", id: "WATCHLIST" },
-            ]
-          : [{ type: "Post", id: "WATCHLIST" }],
-    }),
   }),
 });
 
@@ -127,6 +71,4 @@ export const {
   useLoginMutation,
   useCreateSessionMutation,
   useGetUserDataQuery,
-  useAddToWatchListMutation,
-  useGetWatchListQuery,
 } = userApi;

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import apiKey from "../../api/apiKey";
 import { useGetUserDataQuery } from "../../services/userApi";
-import SearchBar from "../search/searchBar/SearchBar";
+import SearchBar from "../SearchBar";
 import styles from "./navbar.module.scss";
 
 function Navbar() {
@@ -21,14 +21,11 @@ function Navbar() {
     data: userData = {},
     refetch,
     isLoading,
-  } = useGetUserDataQuery(credentials, {
-    skip: !sessionId,
-  });
+  } = useGetUserDataQuery(credentials);
 
   useEffect(() => {
     if (userData.username) {
       setIsLogin(true);
-      localStorage.setItem("user_data", JSON.stringify(userData));
     }
   }, [userData]);
 
@@ -40,8 +37,8 @@ function Navbar() {
   const logoutHandler = async () => {
     localStorage.removeItem("session_id");
     setSessionId(null);
+    refetch();
     setIsLogin(false);
-    router.push("/");
   };
 
   const loginClickHandler = () => {
@@ -59,11 +56,9 @@ function Navbar() {
           <li>
             <Link href="/">Home</Link>
           </li>
-          {isLogin && (
-            <li>
-              <Link href="/watchlist">Watchlist</Link>
-            </li>
-          )}
+          <li>
+            <Link href="/watch-list">Watch List</Link>
+          </li>
           <li>
             <SearchBar />
           </li>
@@ -72,7 +67,8 @@ function Navbar() {
               <>
                 {isLogin && <span>{userData.username}</span>}
                 <button onClick={loginClickHandler}>
-                  {isLogin ? "Logout" : "Login"}
+                  {isLogin && "Logout"}
+                  {!isLogin && "Login"}
                 </button>
               </>
             )}
