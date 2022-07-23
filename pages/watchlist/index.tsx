@@ -7,7 +7,6 @@ import { useGetWatchListQuery } from "../../services/userApi";
 import apiKey from "../../api/apiKey";
 
 const WatchlistPage: NextPageWithLayout = () => {
-  const [skip, setSkip] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>();
   const [userData, setUserData] = useState<any>();
 
@@ -17,18 +16,12 @@ const WatchlistPage: NextPageWithLayout = () => {
       key: apiKey,
       session_id: sessionId,
     },
-    { skip }
+    { skip: !!userData }
   );
   useEffect(() => {
     setSessionId(localStorage.getItem("session_id"));
     setUserData(JSON.parse(localStorage.getItem("user_data") || ""));
   }, []);
-
-  useEffect(() => {
-    if (userData) {
-      setSkip(false);
-    }
-  }, [userData]);
 
   return (
     <div className={styles["watchlist-page"]}>

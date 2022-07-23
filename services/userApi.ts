@@ -81,13 +81,35 @@ export const userApi = createApi({
           watchlist: credentials.watchlist,
         },
       }),
+      // async onQueryStarted(
+      //   { media_id, ...patch },
+      //   { dispatch, queryFulfilled }
+      // ) {
+      //   console.log("onQueryStarted: ", patch);
+      //   let patchResult = null;
+      //   if (!patch.watchlist) {
+      //     patchResult = dispatch(
+      //       userApi.util.updateQueryData("getWatchList", media_id, (draft) => {
+      //         console.log("Update: ", draft);
+      //         delete draft.media_id;
+      //       })
+      //     );
+      //   }
+      //   try {
+      //     await queryFulfilled;
+      //   } catch {
+      //     if (!patch.watchlist) {
+      //       patchResult.undo();
+      //     }
+      //   }
+      // },
       invalidatesTags: [{ type: "Post", id: "WATCHLIST" }],
     }),
     getWatchList: builder.query({
       query: (credentials) =>
         `account/${credentials.account_id}/watchlist/movies?api_key=${credentials.key}&session_id=${credentials.session_id}&sort_by=created_at.asc&page=1`,
       providesTags: (data: any) =>
-        data.results
+        data?.results
           ? [
               ...data.results.map(({ id }: { id: any }) => ({
                 type: "Post" as const,

@@ -8,23 +8,15 @@ import Layout from "../../../components/layout";
 import { NextPageWithLayout } from "../../_app";
 
 const SearchPage: NextPageWithLayout = () => {
-  const [skip, setSkip] = useState(true);
   const router = useRouter();
   const {
     refetch,
     data = null,
     isLoading: isLoadingSearch,
-  } = useSearchQuery({ query: router.query.q, key: apiKey }, { skip });
-
-  useEffect(() => {
-    if (router.query.q) {
-      setSkip(false);
-    }
-  }, [router]);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  } = useSearchQuery(
+    { query: router.query.q, key: apiKey },
+    { skip: !router.query.q }
+  );
 
   return (
     <div className={styles["search-page"]}>
@@ -36,11 +28,7 @@ const SearchPage: NextPageWithLayout = () => {
             <h1>Results for &quot;{router.query.q}&quot;</h1>
             <ul>
               {data.results.map((movie: any) => (
-                <MovieCard
-                  key={movie.id}
-                  movie={movie}
-                  addOrRemove="add"
-                />
+                <MovieCard key={movie.id} movie={movie} addOrRemove="add" />
               ))}
             </ul>
           </div>

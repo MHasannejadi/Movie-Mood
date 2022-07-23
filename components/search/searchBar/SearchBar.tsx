@@ -12,7 +12,6 @@ interface MyFormValues {
 
 function SearchBar() {
   const initialValues: MyFormValues = { query: "" };
-  const [skip, setSkip] = useState(true);
   const router = useRouter();
   const [isActiveBox, setIsActiveBox] = useState(false);
   const formRef = useRef<FormikProps<any>>(null);
@@ -22,7 +21,7 @@ function SearchBar() {
     isLoading: isLoadingSearch,
   } = useSearchQuery(
     { query: formRef.current?.values.query, key: apiKey },
-    { skip }
+    { skip: !formRef.current?.values.query }
   );
 
   function debounce(callback: any, delay: number | undefined) {
@@ -35,7 +34,6 @@ function SearchBar() {
 
   const searchHandler = debounce(() => {
     if (formRef.current?.values.query) {
-      setSkip(false);
       refetch();
     } else {
       setIsActiveBox(false);

@@ -11,18 +11,14 @@ import toast from "react-hot-toast";
 
 const MoviePage: NextPageWithLayout = () => {
   const router = useRouter();
-  const [skip, setSkip] = useState(true);
   const {
     data: movie = {},
     isLoading,
     isFetching,
-  } = useGetMovieQuery({ key: apiKey, id: router.query.movieId }, { skip });
-
-  useEffect(() => {
-    if (router.query.movieId) {
-      setSkip(false);
-    }
-  }, [router.query.movieId]);
+  } = useGetMovieQuery(
+    { key: apiKey, id: router.query.movieId },
+    { skip: !router.query.movieId }
+  );
 
   const [sessionId, setSessionId] = useState<string | null>();
   const [userData, setUserData] = useState<any>();

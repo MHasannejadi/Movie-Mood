@@ -27,19 +27,22 @@ function MovieCard({
   const addToWatchlistHandler = async (command: string) => {
     if (sessionId && userData) {
       try {
-        const watchlistResponse = await addToWatchlist({
+        await addToWatchlist({
           account_id: userData.id,
           key: apiKey,
           session_id: sessionId,
           media_id: movie.id,
           media_type: "movie",
           watchlist: command === "add" ? true : false,
-        }).unwrap();
-        if (watchlistResponse.success) {
-          if (command === "add") {
-            toast.success("Successfully added to watchlist");
-          }
-        }
+        })
+          .unwrap()
+          .then((res) => {
+            if (res.success) {
+              if (command === "add") {
+                toast.success("Successfully added to watchlist");
+              }
+            }
+          });
       } catch (error: any) {
         toast.error(error.data.status_message);
       }

@@ -8,7 +8,6 @@ import styles from "./navbar.module.scss";
 
 function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
-  const [skip, setSkip] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>();
 
   const router = useRouter();
@@ -23,7 +22,7 @@ function Navbar() {
     refetch,
     isLoading,
   } = useGetUserDataQuery(credentials, {
-    skip,
+    skip: !sessionId,
   });
 
   useEffect(() => {
@@ -36,15 +35,13 @@ function Navbar() {
   useEffect(() => {
     let session = localStorage.getItem("session_id") || "";
     setSessionId(session);
-    if (session) {
-      setSkip(false);
-    }
   }, []);
 
   const logoutHandler = async () => {
     localStorage.removeItem("session_id");
     setSessionId(null);
     setIsLogin(false);
+    router.push("/");
   };
 
   const loginClickHandler = () => {
