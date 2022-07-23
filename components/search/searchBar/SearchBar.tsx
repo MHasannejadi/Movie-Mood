@@ -1,10 +1,10 @@
-import styles from "./search-bar.module.scss";
+import styles from "components/search/searchBar/search-bar.module.scss";
 import { Formik, Form, Field, FormikProps } from "formik";
 import { useRouter } from "next/router";
-import { useState, useRef, useEffect, useCallback } from "react";
-import apiKey from "../../../api/apiKey";
-import { useSearchQuery } from "../../../services/movieApi";
-import SearchBox from "../searchBox/SearchBox";
+import { useState, useRef, useEffect } from "react";
+import apiKey from "api/apiKey";
+import { useSearchQuery } from "services/movieApi";
+import SearchBox from "components/search/searchBox/SearchBox";
 
 interface MyFormValues {
   query: string;

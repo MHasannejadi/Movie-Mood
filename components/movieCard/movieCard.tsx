@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import styles from "./movie-card.module.scss";
+import styles from "components/movieCard/movie-card.module.scss";
 import { useState, useEffect } from "react";
-import { useAddToWatchListMutation } from "../../services/userApi";
-import apiKey from "../../api/apiKey";
-import toast, { Toaster } from "react-hot-toast";
+import { useAddToWatchListMutation } from "services/userApi";
+import apiKey from "api/apiKey";
+import toast from "react-hot-toast";
 
 function MovieCard({
   movie,

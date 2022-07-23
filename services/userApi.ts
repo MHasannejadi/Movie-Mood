@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { watchlistTagId } from "consts/tagIds";
 
 export interface LoginRequest {
   key: string;
@@ -134,7 +135,7 @@ export const userApi = createApi({
           }
         }
       },
-      // invalidatesTags: [{ type: "Post", id: "WATCHLIST" }],
+      // invalidatesTags: [{ type: "Post", id: watchlistTagId }],
     }),
     getWatchList: builder.query<{ results: Array<any> }, GetWatchListRequest>({
       query: (credentials) =>
@@ -146,9 +147,9 @@ export const userApi = createApi({
                 type: "Post" as const,
                 id,
               })),
-              { type: "Post", id: "WATCHLIST" },
+              { type: "Post", id: watchlistTagId },
             ]
-          : [{ type: "Post", id: "WATCHLIST" }],
+          : [{ type: "Post", id: watchlistTagId }],
     }),
   }),
 });

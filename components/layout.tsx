@@ -1,8 +1,7 @@
-import { ReactElement } from "react";
 import { Provider } from "react-redux";
-import { store } from "../store/store";
-import Navbar from "./navbar";
-import styles from "./layout.module.scss";
+import { store } from "store/store";
+import Navbar from "components/navbar";
+import styles from "components/layout.module.scss";
 import { Toaster } from "react-hot-toast";
 
 type layoutProps = {

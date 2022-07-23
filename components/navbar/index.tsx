@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import apiKey from "../../api/apiKey";
-import { useGetUserDataQuery } from "../../services/userApi";
-import Loader from "../loader/loader";
-import SearchBar from "../search/searchBar/SearchBar";
-import styles from "./navbar.module.scss";
+import apiKey from "api/apiKey";
+import { useGetUserDataQuery } from "services/userApi";
+import SearchBar from "components/search/searchBar/SearchBar";
+import styles from "components/navbar/navbar.module.scss";
 
 function Navbar() {
   const [isLogin, setIsLogin] = useState(false);

@@ -1,16 +1,15 @@
-import styles from "./login.module.scss";
+import styles from "pages/login/login.module.scss";
 import * as React from "react";
 import { Formik, FormikProps, Form, Field, FieldProps } from "formik";
 import {
   useCreateSessionMutation,
   useCreateTokenQuery,
   useLoginMutation,
-} from "../../services/userApi";
+} from "services/userApi";
 import { useRouter } from "next/router";
-import apiKey from "../../api/apiKey";
+import apiKey from "api/apiKey";
 import toast, { Toaster } from "react-hot-toast";
-import { useState, useEffect } from "react";
-import Loader from "../../components/loader/loader";
+import Loader from "components/loader/loader";
 
 interface MyFormValues {
   username: string;

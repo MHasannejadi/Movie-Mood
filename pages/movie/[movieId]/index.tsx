@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import apiKey from "../../../api/apiKey";
-import Layout from "../../../components/layout";
-import { NextPageWithLayout } from "../../_app";
-import { useGetMovieQuery } from "../../../services/movieApi";
-import styles from "./movie.module.scss";
-import { useAddToWatchListMutation } from "../../../services/userApi";
+import apiKey from "api/apiKey";
+import Layout from "components/layout";
+import { NextPageWithLayout } from "pages/_app";
+import { useGetMovieQuery } from "services/movieApi";
+import styles from "pages/movie/[movieId]/movie.module.css";
+import { useAddToWatchListMutation } from "services/userApi";
 import toast from "react-hot-toast";
-import Loader from "../../../components/loader/loader";
+import Loader from "components/loader/loader";
 
 const MoviePage: NextPageWithLayout = () => {
   const router = useRouter();

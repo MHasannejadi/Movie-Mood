@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
 import type { ReactElement } from "react";
-import apiKey from "../../../../api/apiKey";
-import Layout from "../../../../components/layout";
-import Loader from "../../../../components/loader/loader";
-import { useGetActorQuery } from "../../../../services/actorApi";
-import { NextPageWithLayout } from "../../../_app";
-import styles from "./actor.module.scss";
+import apiKey from "api/apiKey";
+import Layout from "components/layout";
+import Loader from "components/loader/loader";
+import { useGetActorQuery } from "services/actorApi";
+import { NextPageWithLayout } from "pages/_app";
+import styles from "pages/movie/[movieId]/actor/[actorId].module.scss";
 
 const ActorPage: NextPageWithLayout = () => {
   const router = useRouter();

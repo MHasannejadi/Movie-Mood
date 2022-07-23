@@ -1,11 +1,11 @@
 import { useState, useEffect, ReactElement } from "react";
-import { NextPageWithLayout } from "../_app";
-import styles from "./watchlist.module.scss";
-import Layout from "../../components/layout";
-import MovieCard from "../../components/movieCard/movieCard";
-import { useGetWatchListQuery } from "../../services/userApi";
-import apiKey from "../../api/apiKey";
-import Loader from "../../components/loader/loader";
+import { NextPageWithLayout } from "pages/_app";
+import styles from "pages/watchlist/watchlist.module.scss";
+import Layout from "components/layout";
+import MovieCard from "components/movieCard/movieCard";
+import { useGetWatchListQuery } from "services/userApi";
+import apiKey from "api/apiKey";
+import Loader from "components/loader/loader";
 
 const WatchlistPage: NextPageWithLayout = () => {
   const [sessionId, setSessionId] = useState<string | null>();

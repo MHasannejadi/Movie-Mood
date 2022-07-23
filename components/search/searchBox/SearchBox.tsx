@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./search-box.module.scss";
+import styles from "components/search/searchBox/search-box.module.scss";
 
 function SearchBox({ results, query }: { results: any; query: any }) {
   return (
