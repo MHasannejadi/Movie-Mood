@@ -16,7 +16,7 @@ const WatchlistPage: NextPageWithLayout = () => {
       key: apiKey,
       session_id: sessionId,
     },
-    { skip: !!userData }
+    { skip: !userData }
   );
   useEffect(() => {
     setSessionId(localStorage.getItem("session_id"));
