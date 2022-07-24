@@ -4,18 +4,26 @@ import { useRouter } from "next/router";
 import apiKey from "api/apiKey";
 import Layout from "components/layout";
 import { NextPageWithLayout } from "pages/_app";
-import { useGetMovieQuery } from "services/movieApi";
+import { useGetMovieCreditsQuery, useGetMovieQuery } from "services/movieApi";
 import styles from "pages/movie/[movieId]/movie.module.scss";
 import { useAddToWatchListMutation } from "services/userApi";
 import toast from "react-hot-toast";
 import Loader from "components/loader/loader";
+import ActorCard from "components/actorCard/actorCard";
 
 const MoviePage: NextPageWithLayout = () => {
   const router = useRouter();
+
   const { data: movie = {}, isLoading } = useGetMovieQuery(
     { key: apiKey, id: router.query.movieId },
     { skip: !router.query.movieId }
   );
+
+  const { data: actors = {}, isLoading: isLoadingCredits } =
+    useGetMovieCreditsQuery(
+      { key: apiKey, id: router.query.movieId },
+      { skip: !router.query.movieId }
+    );
 
   const [addToWatchlist, { isLoading: isLoadingWatchlist }] =
     useAddToWatchListMutation();
@@ -67,6 +75,11 @@ const MoviePage: NextPageWithLayout = () => {
               <button onClick={() => addToWatchlistHandler("add")}>
                 {isLoadingWatchlist ? "Loading..." : "Add to Watchlist"}
               </button>
+              <ul>
+                {actors.cast?.slice(0, 5).map((actor: any) => (
+                  <ActorCard key={actor.key} actor={actor} movieId={movie.id} />
+                ))}
+              </ul>
             </section>
           </div>
         </main>

@@ -11,6 +11,9 @@ export const movieApi = createApi({
     getMovie: builder.query({
       query: (data) => `movie/${data.id}?api_key=${data.key}`,
     }),
+    getMovieCredits: builder.query({
+      query: (data) => `movie/${data.id}/credits?api_key=${data.key}`,
+    }),
     search: builder.query({
       query: (data) =>
         `search/movie?api_key=${data.key}&query=${data.query}&language=en-US&page=1&include_adult=false`,
@@ -18,5 +21,5 @@ export const movieApi = createApi({
   }),
 });
 
-export const { useGetPopularMoviesQuery, useGetMovieQuery, useSearchQuery } =
+export const { useGetPopularMoviesQuery, useGetMovieQuery, useSearchQuery, useGetMovieCreditsQuery } =
   movieApi;

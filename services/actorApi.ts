@@ -5,7 +5,7 @@ export const actorApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.themoviedb.org/3/" }),
   endpoints: (builder) => ({
     getActor: builder.query({
-      query: (data) => `person/${data.id}?api_key=${data.key}`,
+      query: (data) => `credit/${data.id}?api_key=${data.key}`,
     }),
   }),
 });
