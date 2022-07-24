@@ -26,6 +26,7 @@ function MovieCard({
     useAddToWatchListMutation();
 
   const addToWatchlistHandler = async (command: string) => {
+
     if (sessionId && userData) {
       try {
         await addToWatchlist({

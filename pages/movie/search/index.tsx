@@ -1,9 +1,9 @@
-import { useState, useEffect, ReactElement } from "react";
+import { ReactElement } from "react";
 import apiKey from "api/apiKey";
 import { useSearchQuery } from "services/movieApi";
 import { useRouter } from "next/router";
 import MovieCard from "components/movieCard/movieCard";
-import styles from "pages/search/search-page.module.scss";
+import styles from "pages/movie/search/search-page.module.scss";
 import Layout from "components/layout";
 import { NextPageWithLayout } from "pages/_app";
 import Loader from "components/loader/loader";
@@ -11,7 +11,6 @@ import Loader from "components/loader/loader";
 const SearchPage: NextPageWithLayout = () => {
   const router = useRouter();
   const {
-    refetch,
     data = null,
     isLoading: isLoadingSearch,
   } = useSearchQuery(
