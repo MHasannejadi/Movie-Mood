@@ -15,8 +15,6 @@ const ActorPage: NextPageWithLayout = () => {
     id: router.query.actorId,
   });
 
-  console.log(actor);
-
   return (
     <main className={styles.actor_page}>
       {isLoading ? (
