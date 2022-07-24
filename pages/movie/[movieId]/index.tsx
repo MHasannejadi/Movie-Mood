@@ -5,7 +5,7 @@ import apiKey from "api/apiKey";
 import Layout from "components/layout";
 import { NextPageWithLayout } from "pages/_app";
 import { useGetMovieQuery } from "services/movieApi";
-import styles from "pages/movie/[movieId]/movie.module.css";
+import styles from "pages/movie/[movieId]/movie.module.scss";
 import { useAddToWatchListMutation } from "services/userApi";
 import toast from "react-hot-toast";
 import Loader from "components/loader/loader";
@@ -21,10 +21,9 @@ const MoviePage: NextPageWithLayout = () => {
     useAddToWatchListMutation();
 
   const addToWatchlistHandler = async (command: string) => {
-
     const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
     const sessionId = localStorage.getItem("session_id");
-    
+
     if (sessionId && userData) {
       try {
         const watchlistResponse = await addToWatchlist({

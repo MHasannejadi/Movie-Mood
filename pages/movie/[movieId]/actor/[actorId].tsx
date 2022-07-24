@@ -6,7 +6,7 @@ import Layout from "components/layout";
 import Loader from "components/loader/loader";
 import { useGetActorQuery } from "services/actorApi";
 import { NextPageWithLayout } from "pages/_app";
-import styles from "pages/movie/[movieId]/actor/[actorId].module.scss";
+import styles from "pages/movie/[movieId]/actor/actor.module.scss";
 
 const ActorPage: NextPageWithLayout = () => {
   const router = useRouter();
