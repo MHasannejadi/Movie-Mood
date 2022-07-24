@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import apiKey from "api/apiKey";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "components/loader/loader";
+import { useEffect } from "react";
 
 interface MyFormValues {
   username: string;
@@ -28,6 +29,10 @@ export const LoginPage: React.FC<{}> = () => {
   const [loginPost, { isLoading: isLoadingLogin }] = useLoginMutation();
   const [getSession, { isLoading: isLoadingSession }] =
     useCreateSessionMutation();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   isLoading = isLoadingToken || isLoadingLogin || isLoadingSession;
 
