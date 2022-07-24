@@ -21,7 +21,8 @@ const WatchlistPage: NextPageWithLayout = () => {
   );
   useEffect(() => {
     setSessionId(localStorage.getItem("session_id"));
-    setUserData(JSON.parse(localStorage.getItem("user_data") || ""));
+    let localUserData = localStorage.getItem("user_data");
+    setUserData(localUserData ? JSON.parse(localUserData) : null);
   }, []);
 
   return (

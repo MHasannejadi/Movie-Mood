@@ -18,7 +18,8 @@ function MovieCard({
 
   useEffect(() => {
     setSessionId(localStorage.getItem("session_id"));
-    setUserData(JSON.parse(localStorage.getItem("user_data") || ""));
+    let localUserData = localStorage.getItem("user_data");
+    setUserData(localUserData ? JSON.parse(localUserData) : null);
   }, []);
 
   const [addToWatchlist, { isLoading: isLoadingWatchlist }] =
@@ -28,7 +29,7 @@ function MovieCard({
     if (sessionId && userData) {
       try {
         await addToWatchlist({
-          account_id: userData.id,
+          account_id: userData?.id,
           key: apiKey,
           session_id: sessionId,
           media_id: movie.id,
