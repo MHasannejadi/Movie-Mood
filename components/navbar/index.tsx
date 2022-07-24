@@ -39,6 +39,7 @@ function Navbar() {
 
   const logoutHandler = async () => {
     localStorage.removeItem("session_id");
+    localStorage.removeItem("user_data");
     setSessionId(null);
     setIsLogin(false);
     router.push("/");
