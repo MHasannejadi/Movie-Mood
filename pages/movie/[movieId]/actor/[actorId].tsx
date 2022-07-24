@@ -7,6 +7,7 @@ import Loader from "components/loader/loader";
 import { useGetActorQuery } from "services/actorApi";
 import { NextPageWithLayout } from "pages/_app";
 import styles from "pages/movie/[movieId]/actor/actor.module.scss";
+import { imageSourceHighQuality } from "constants/image";
 
 const ActorPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -23,7 +24,7 @@ const ActorPage: NextPageWithLayout = () => {
         <div className={styles.actor_page__header}>
           <section className={styles.actor_page__header__image_section}>
             <img
-              src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${actor.person.profile_path}`}
+              src={imageSourceHighQuality + actor.person.profile_path}
               alt={actor.person.name}
             ></img>
           </section>

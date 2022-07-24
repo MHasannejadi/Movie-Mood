@@ -10,6 +10,7 @@ import { useAddToWatchListMutation } from "services/userApi";
 import toast from "react-hot-toast";
 import Loader from "components/loader/loader";
 import ActorCard from "components/actorCard/actorCard";
+import { imageSourceHighQuality } from "constants/image";
 
 const MoviePage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -65,7 +66,7 @@ const MoviePage: NextPageWithLayout = () => {
           <div className={styles.movie_page__header}>
             <section className={styles.movie_page__header__image_section}>
               <img
-                src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+                src={imageSourceHighQuality + movie.poster_path}
                 alt={movie.title}
               ></img>
             </section>

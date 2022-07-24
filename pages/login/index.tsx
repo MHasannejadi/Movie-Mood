@@ -66,6 +66,9 @@ export const LoginPage: React.FC<{}> = () => {
       if (error?.data?.status_code === 33) {
         refetch();
       }
+      if (error?.data?.status_code === 30) {
+        errorNotify();
+      }
     }
   };
 

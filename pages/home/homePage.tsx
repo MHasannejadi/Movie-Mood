@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { useEffect } from "react";
 import apiKey from "api/apiKey";
 import Loader from "components/loader/loader";
 import MovieCard from "components/movieCard/movieCard";
@@ -7,10 +5,6 @@ import { useGetPopularMoviesQuery } from "services/movieApi";
 import styles from "pages/home/home.module.scss";
 
 function HomePage() {
-  let token: string | null = "";
-  useEffect(() => {
-    token = localStorage.getItem("session_id");
-  }, []);
   const { data = [], isLoading } = useGetPopularMoviesQuery(apiKey);
 
   return (

@@ -4,6 +4,7 @@ import styles from "components/movieCard/movie-card.module.scss";
 import { useAddToWatchListMutation } from "services/userApi";
 import apiKey from "api/apiKey";
 import toast from "react-hot-toast";
+import { imageSourceLowQuality } from "constants/image";
 
 function MovieCard({
   movie,
@@ -12,12 +13,10 @@ function MovieCard({
   movie: any;
   addOrRemove: string;
 }) {
-
   const [addToWatchlist, { isLoading: isLoadingWatchlist }] =
     useAddToWatchListMutation();
 
   const addToWatchlistHandler = async (command: string) => {
-
     const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
     const sessionId = localStorage.getItem("session_id");
 
@@ -54,7 +53,7 @@ function MovieCard({
         <article className={styles.card}>
           <Link href={`/movie/${movie.id}`}>
             <img
-              src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`}
+              src={imageSourceLowQuality + movie.poster_path}
               alt={movie.title}
             ></img>
           </Link>{" "}

@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import styles from "components/actorCard/actor-card.module.scss";
-import { useAddToWatchListMutation } from "services/userApi";
-import apiKey from "api/apiKey";
-import toast from "react-hot-toast";
+import { imageSourceLowQuality } from "constants/image";
 
 function ActorCard({ actor: actor, movieId }: { actor: any; movieId: any }) {
   return (
@@ -12,7 +10,7 @@ function ActorCard({ actor: actor, movieId }: { actor: any; movieId: any }) {
         <article className={styles.card}>
           <Link href={`/movie/${movieId}/actor/${actor.credit_id}`}>
             <img
-              src={`https://www.themoviedb.org/t/p/w220_and_h330_face${actor.profile_path}`}
+              src={imageSourceLowQuality + actor.profile_path}
               alt={actor.name}
             ></img>
           </Link>{" "}
