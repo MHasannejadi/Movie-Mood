@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { useRouter } from "next/router";
 import apiKey from "api/apiKey";
 import Layout from "components/layout";
@@ -17,19 +17,14 @@ const MoviePage: NextPageWithLayout = () => {
     { skip: !router.query.movieId }
   );
 
-  const [sessionId, setSessionId] = useState<string | null>();
-  const [userData, setUserData] = useState<any>();
-
-  useEffect(() => {
-    setSessionId(localStorage.getItem("session_id"));
-    let localUserData = localStorage.getItem("user_data");
-    setUserData(localUserData ? JSON.parse(localUserData) : null);
-  }, []);
-
   const [addToWatchlist, { isLoading: isLoadingWatchlist }] =
     useAddToWatchListMutation();
 
   const addToWatchlistHandler = async (command: string) => {
+
+    const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
+    const sessionId = localStorage.getItem("session_id");
+    
     if (sessionId && userData) {
       try {
         const watchlistResponse = await addToWatchlist({

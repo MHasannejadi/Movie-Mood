@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import styles from "components/movieCard/movie-card.module.scss";
-import { useState, useEffect } from "react";
 import { useAddToWatchListMutation } from "services/userApi";
 import apiKey from "api/apiKey";
 import toast from "react-hot-toast";
@@ -13,19 +12,14 @@ function MovieCard({
   movie: any;
   addOrRemove: string;
 }) {
-  const [sessionId, setSessionId] = useState<string | null>();
-  const [userData, setUserData] = useState<any>();
-
-  useEffect(() => {
-    setSessionId(localStorage.getItem("session_id"));
-    let localUserData = localStorage.getItem("user_data");
-    setUserData(localUserData ? JSON.parse(localUserData) : null);
-  }, []);
 
   const [addToWatchlist, { isLoading: isLoadingWatchlist }] =
     useAddToWatchListMutation();
 
   const addToWatchlistHandler = async (command: string) => {
+
+    const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
+    const sessionId = localStorage.getItem("session_id");
 
     if (sessionId && userData) {
       try {
