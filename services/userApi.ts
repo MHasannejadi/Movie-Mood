@@ -86,7 +86,9 @@ export const userApi = createApi({
                 key: patch.key,
               },
               (draft) => {
-                draft.results.push(patch.movie_data);
+                if (!draft.results.find((item) => item.id === patch.media_id)) {
+                  draft.results.push(patch.movie_data);
+                }
               }
             )
           );
