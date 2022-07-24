@@ -1,4 +1,4 @@
-.actor-page {
+.actor_page {
   &__header {
     display: flex;
     justify-content: center;
@@ -6,17 +6,17 @@
     section {
       display: inline-block;
     }
-    &__image-section {
+    &__image_section {
       width: 40%;
       text-align: center;
       margin-top: 2rem;
       img {
-        width: 70%;
+        width: 60%;
         margin: auto;
         border-radius: 10px;
       }
     }
-    &__detail-section {
+    &__detail_section {
       width: 60%;
       display: flex;
       justify-content: center;

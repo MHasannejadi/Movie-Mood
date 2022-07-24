@@ -1,39 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-export interface LoginRequest {
-  key: string;
-  username: string;
-  password: string;
-  request_token: string;
-}
-export interface LoginResponse {
-  success: boolean;
-  expires_at: string;
-  request_token: string;
-}
-
-export interface GetSessionRequest {
-  key: string;
-  request_token: string;
-}
-export interface GetSessionResponse {
-  success: boolean;
-  session_id: string;
-}
-
-export interface AddToWatchListRequest {
-  account_id: string;
-  session_id: string;
-  key: string;
-  media_type: string;
-  media_id: number;
-  watchlist: boolean;
-}
-export interface AddToWatchListResponse {
-  success: boolean;
-  status_code: number;
-  status_message: string;
-}
+import {
+  AddToWatchListRequest,
+  AddToWatchListResponse,
+  GetSessionRequest,
+  GetSessionResponse,
+  GetWatchListRequest,
+  LoginRequest,
+  LoginResponse,
+} from "types/services/userTypes";
 
 export const userApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -81,43 +55,56 @@ export const userApi = createApi({
           watchlist: credentials.watchlist,
         },
       }),
-      // async onQueryStarted(
-      //   { media_id, ...patch },
-      //   { dispatch, queryFulfilled }
-      // ) {
-      //   console.log("onQueryStarted: ", patch);
-      //   let patchResult = null;
-      //   if (!patch.watchlist) {
-      //     patchResult = dispatch(
-      //       userApi.util.updateQueryData("getWatchList", media_id, (draft) => {
-      //         console.log("Update: ", draft);
-      //         delete draft.media_id;
-      //       })
-      //     );
-      //   }
-      //   try {
-      //     await queryFulfilled;
-      //   } catch {
-      //     if (!patch.watchlist) {
-      //       patchResult.undo();
-      //     }
-      //   }
-      // },
-      invalidatesTags: [{ type: "Post", id: "WATCHLIST" }],
+      async onQueryStarted(patch, { dispatch, queryFulfilled }) {
+        let patchResult = null;
+        if (!patch.watchlist) {
+          patchResult = dispatch(
+            userApi.util.updateQueryData(
+              "getWatchList",
+              {
+                account_id: patch.account_id,
+                session_id: patch.session_id,
+                key: patch.key,
+              },
+              (draft) => {
+                const index = draft.results.findIndex(
+                  (item) => item.id === patch.media_id
+                );
+                if (index !== -1) {
+                  draft.results.splice(index, 1);
+                }
+              }
+            )
+          );
+        } else {
+          patchResult = dispatch(
+            userApi.util.updateQueryData(
+              "getWatchList",
+              {
+                account_id: patch.account_id,
+                session_id: patch.session_id,
+                key: patch.key,
+              },
+              (draft) => {
+                if (!draft.results.find((item) => item.id === patch.media_id)) {
+                  draft.results.push(patch.movie_data);
+                }
+              }
+            )
+          );
+        }
+        try {
+          await queryFulfilled;
+        } catch {
+          if (!patch.watchlist) {
+            patchResult?.undo();
+          }
+        }
+      },
     }),
-    getWatchList: builder.query({
+    getWatchList: builder.query<{ results: Array<any> }, GetWatchListRequest>({
       query: (credentials) =>
         `account/${credentials.account_id}/watchlist/movies?api_key=${credentials.key}&session_id=${credentials.session_id}&sort_by=created_at.asc&page=1`,
-      providesTags: (data: any) =>
-        data?.results
-          ? [
-              ...data.results.map(({ id }: { id: any }) => ({
-                type: "Post" as const,
-                id,
-              })),
-              { type: "Post", id: "WATCHLIST" },
-            ]
-          : [{ type: "Post", id: "WATCHLIST" }],
     }),
   }),
 });

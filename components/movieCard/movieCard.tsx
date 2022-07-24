@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import styles from "./movie-card.module.scss";
-import { useState, useEffect } from "react";
-import { useAddToWatchListMutation } from "../../services/userApi";
-import apiKey from "../../api/apiKey";
-import toast, { Toaster } from "react-hot-toast";
+import styles from "components/movieCard/movie-card.module.scss";
+import { useAddToWatchListMutation } from "services/userApi";
+import apiKey from "api/apiKey";
+import toast from "react-hot-toast";
+import { imageSourceLowQuality } from "constants/image";
 
 function MovieCard({
   movie,
@@ -13,27 +13,23 @@ function MovieCard({
   movie: any;
   addOrRemove: string;
 }) {
-  const [sessionId, setSessionId] = useState<string | null>();
-  const [userData, setUserData] = useState<any>();
-
-  useEffect(() => {
-    setSessionId(localStorage.getItem("session_id"));
-    setUserData(JSON.parse(localStorage.getItem("user_data") || ""));
-  }, []);
-
   const [addToWatchlist, { isLoading: isLoadingWatchlist }] =
     useAddToWatchListMutation();
 
   const addToWatchlistHandler = async (command: string) => {
+    const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
+    const sessionId = localStorage.getItem("session_id");
+
     if (sessionId && userData) {
       try {
         await addToWatchlist({
-          account_id: userData.id,
+          account_id: userData?.id,
           key: apiKey,
           session_id: sessionId,
           media_id: movie.id,
           media_type: "movie",
           watchlist: command === "add" ? true : false,
+          movie_data: movie,
         })
           .unwrap()
           .then((res) => {
@@ -57,7 +53,7 @@ function MovieCard({
         <article className={styles.card}>
           <Link href={`/movie/${movie.id}`}>
             <img
-              src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`}
+              src={imageSourceLowQuality + movie.poster_path}
               alt={movie.title}
             ></img>
           </Link>{" "}

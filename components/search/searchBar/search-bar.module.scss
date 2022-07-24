@@ -1,12 +1,19 @@
 .search {
+  form {
+    display: flex;
+    align-items: center;
+  }
   input[type="text"] {
     padding: 0.5rem;
     border-radius: 5px 0 0 5px;
     outline: none;
     border: none;
     font-size: 0.9rem;
+    height: 2rem;
   }
   button {
     border-radius: 0 5px 5px 0 !important;
+    height: 2rem;
+
   }
 }

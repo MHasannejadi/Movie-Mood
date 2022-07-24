@@ -1,4 +1,17 @@
-.movie-page {
+.movie_page {
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding-left: 0;
+    li {
+      margin: 0.3rem;
+      flex: 0 0 8rem;
+      border: #8080802e solid 0.06rem;
+      border-radius: 0.5rem;
+    }
+  }
   &__header {
     display: flex;
     justify-content: center;
@@ -6,34 +19,34 @@
     section {
       display: inline-block;
     }
-    &__image-section {
+    &__image_section {
       width: 40%;
       text-align: center;
       img {
         width: 60%;
         margin: auto;
+        margin-top: 1.5rem;
         border-radius: 10px;
       }
     }
-    &__detail-section {
+    &__detail_section {
       width: 60%;
       display: flex;
       justify-content: center;
       h1,
       p,
       button {
-        width: 70%;
+        width: 85%;
       }
       p {
         text-align: justify;
       }
       button {
-        margin-top: 1rem;
         font-size: 1.1rem;
         font-weight: bold;
-        background-color: rgb(241, 44, 208);
-        color: white;
-        padding: 1rem;
+        background-color: rgb(255, 0, 0);
+        color: rgb(255, 255, 255);
+        padding: 0.7rem;
         border-radius: 5px;
         border: none;
         cursor: pointer;

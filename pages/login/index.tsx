@@ -1,15 +1,16 @@
-import styles from "./login.module.scss";
+import styles from "pages/login/login.module.scss";
 import * as React from "react";
 import { Formik, FormikProps, Form, Field, FieldProps } from "formik";
 import {
   useCreateSessionMutation,
   useCreateTokenQuery,
   useLoginMutation,
-} from "../../services/userApi";
+} from "services/userApi";
 import { useRouter } from "next/router";
-import apiKey from "../../api/apiKey";
+import apiKey from "api/apiKey";
 import toast, { Toaster } from "react-hot-toast";
-import { useState, useEffect } from "react";
+import Loader from "components/loader/loader";
+import { useEffect } from "react";
 
 interface MyFormValues {
   username: string;
@@ -28,6 +29,10 @@ export const LoginPage: React.FC<{}> = () => {
   const [loginPost, { isLoading: isLoadingLogin }] = useLoginMutation();
   const [getSession, { isLoading: isLoadingSession }] =
     useCreateSessionMutation();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   isLoading = isLoadingToken || isLoadingLogin || isLoadingSession;
 
@@ -62,8 +67,13 @@ export const LoginPage: React.FC<{}> = () => {
           }
         }
       }
-    } catch {
-      errorNotify();
+    } catch (error: any) {
+      if (error?.data?.status_code === 33) {
+        refetch();
+      }
+      if (error?.data?.status_code === 30) {
+        errorNotify();
+      }
     }
   };
 
@@ -71,7 +81,7 @@ export const LoginPage: React.FC<{}> = () => {
     <div className={styles.login}>
       <Toaster />
       {isLoading ? (
-        <div>Loading...</div>
+        <Loader />
       ) : (
         <Formik
           initialValues={initialValues}

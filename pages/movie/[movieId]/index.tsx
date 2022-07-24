@@ -1,37 +1,38 @@
 /* eslint-disable @next/next/no-img-element */
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { useRouter } from "next/router";
-import apiKey from "../../../api/apiKey";
-import Layout from "../../../components/layout";
-import { NextPageWithLayout } from "../../_app";
-import { useGetMovieQuery } from "../../../services/movieApi";
-import styles from "./movie.module.scss";
-import { useAddToWatchListMutation } from "../../../services/userApi";
+import apiKey from "api/apiKey";
+import Layout from "components/layout";
+import { NextPageWithLayout } from "pages/_app";
+import { useGetMovieCreditsQuery, useGetMovieQuery } from "services/movieApi";
+import styles from "pages/movie/[movieId]/movie.module.scss";
+import { useAddToWatchListMutation } from "services/userApi";
 import toast from "react-hot-toast";
+import Loader from "components/loader/loader";
+import ActorCard from "components/actorCard/actorCard";
+import { imageSourceHighQuality } from "constants/image";
 
 const MoviePage: NextPageWithLayout = () => {
   const router = useRouter();
-  const {
-    data: movie = {},
-    isLoading,
-    isFetching,
-  } = useGetMovieQuery(
+
+  const { data: movie = {}, isLoading } = useGetMovieQuery(
     { key: apiKey, id: router.query.movieId },
     { skip: !router.query.movieId }
   );
 
-  const [sessionId, setSessionId] = useState<string | null>();
-  const [userData, setUserData] = useState<any>();
-
-  useEffect(() => {
-    setSessionId(localStorage.getItem("session_id"));
-    setUserData(JSON.parse(localStorage.getItem("user_data") || ""));
-  }, []);
+  const { data: actors = {}, isLoading: isLoadingCredits } =
+    useGetMovieCreditsQuery(
+      { key: apiKey, id: router.query.movieId },
+      { skip: !router.query.movieId }
+    );
 
   const [addToWatchlist, { isLoading: isLoadingWatchlist }] =
     useAddToWatchListMutation();
 
   const addToWatchlistHandler = async (command: string) => {
+    const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
+    const sessionId = localStorage.getItem("session_id");
+
     if (sessionId && userData) {
       try {
         const watchlistResponse = await addToWatchlist({
@@ -41,6 +42,7 @@ const MoviePage: NextPageWithLayout = () => {
           media_id: movie.id,
           media_type: "movie",
           watchlist: command === "add" ? true : false,
+          movie_data: movie,
         }).unwrap();
         if (watchlistResponse.success) {
           if (command === "add") {
@@ -57,22 +59,28 @@ const MoviePage: NextPageWithLayout = () => {
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
-      {!isLoading && !isFetching && (
-        <main className={styles["movie-page"]}>
-          <div className={styles["movie-page__header"]}>
-            <section className={styles["movie-page__header__image-section"]}>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <main className={styles.movie_page}>
+          <div className={styles.movie_page__header}>
+            <section className={styles.movie_page__header__image_section}>
               <img
-                src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+                src={imageSourceHighQuality + movie.poster_path}
                 alt={movie.title}
               ></img>
             </section>
-            <section className={styles["movie-page__header__detail-section"]}>
+            <section className={styles.movie_page__header__detail_section}>
               <h1>{movie.title}</h1>
               <p>{movie.overview}</p>
               <button onClick={() => addToWatchlistHandler("add")}>
                 {isLoadingWatchlist ? "Loading..." : "Add to Watchlist"}
               </button>
+              <ul>
+                {actors.cast?.slice(0, 5).map((actor: any) => (
+                  <ActorCard key={actor.key} actor={actor} movieId={movie.id} />
+                ))}
+              </ul>
             </section>
           </div>
         </main>

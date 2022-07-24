@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import apiKey from "../../api/apiKey";
-import { useGetUserDataQuery } from "../../services/userApi";
-import SearchBar from "../search/searchBar/SearchBar";
-import styles from "./navbar.module.scss";
+import apiKey from "api/apiKey";
+import { useGetUserDataQuery } from "services/userApi";
+import SearchBar from "components/search/searchBar/SearchBar";
+import styles from "components/navbar/navbar.module.scss";
 
 function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
@@ -39,6 +39,7 @@ function Navbar() {
 
   const logoutHandler = async () => {
     localStorage.removeItem("session_id");
+    localStorage.removeItem("user_data");
     setSessionId(null);
     setIsLogin(false);
     router.push("/");

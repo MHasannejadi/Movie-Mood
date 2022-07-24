@@ -1,10 +1,10 @@
-import styles from "./search-bar.module.scss";
+import styles from "components/search/searchBar/search-bar.module.scss";
 import { Formik, Form, Field, FormikProps } from "formik";
 import { useRouter } from "next/router";
 import { useState, useRef, useEffect } from "react";
-import apiKey from "../../../api/apiKey";
-import { useSearchQuery } from "../../../services/movieApi";
-import SearchBox from "../searchBox/SearchBox";
+import apiKey from "api/apiKey";
+import { useSearchQuery } from "services/movieApi";
+import SearchBox from "components/search/searchBox/SearchBox";
 
 interface MyFormValues {
   query: string;
@@ -12,6 +12,7 @@ interface MyFormValues {
 
 function SearchBar() {
   const initialValues: MyFormValues = { query: "" };
+  const [skip, setSkip] = useState(true);
   const router = useRouter();
   const [isActiveBox, setIsActiveBox] = useState(false);
   const formRef = useRef<FormikProps<any>>(null);
@@ -21,7 +22,7 @@ function SearchBar() {
     isLoading: isLoadingSearch,
   } = useSearchQuery(
     { query: formRef.current?.values.query, key: apiKey },
-    { skip: !formRef.current?.values.query }
+    { skip }
   );
 
   function debounce(callback: any, delay: number | undefined) {
@@ -34,6 +35,7 @@ function SearchBar() {
 
   const searchHandler = debounce(() => {
     if (formRef.current?.values.query) {
+      setSkip(false);
       refetch();
     } else {
       setIsActiveBox(false);
@@ -50,7 +52,7 @@ function SearchBar() {
     if (formRef.current?.values.query === "") {
       setIsActiveBox(false);
     }
-  }, [formRef.current]);
+  }, []);
 
   const submitHandler = ({
     values,
