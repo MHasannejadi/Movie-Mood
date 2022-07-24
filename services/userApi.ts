@@ -90,8 +90,6 @@ export const userApi = createApi({
         },
       }),
       async onQueryStarted(patch, { dispatch, queryFulfilled }) {
-        console.log(patch);
-
         let patchResult = null;
         if (!patch.watchlist) {
           patchResult = dispatch(
@@ -135,7 +133,6 @@ export const userApi = createApi({
           }
         }
       },
-      // invalidatesTags: [{ type: "Post", id: watchlistTagId }],
     }),
     getWatchList: builder.query<{ results: Array<any> }, GetWatchListRequest>({
       query: (credentials) =>
