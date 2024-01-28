@@ -40,7 +40,7 @@ function MovieCard({
             }
           });
       } catch (error: any) {
-        toast.error(error.data.status_message);
+        toast.error(error.data?.status_message);
       }
     } else {
       toast.error("Please login to add to watchlist");
