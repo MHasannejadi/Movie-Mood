@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import apiKey from "api/apiKey";
 import { useGetUserDataQuery } from "services/userApi";
 import SearchBar from "components/search/searchBar/SearchBar";
 import styles from "components/navbar/navbar.module.scss";
+import apiToken from "api/token";
 
 function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
@@ -13,7 +13,7 @@ function Navbar() {
   const router = useRouter();
 
   const credentials = {
-    key: apiKey,
+    token: apiToken,
     session_id: sessionId || null,
   };
 

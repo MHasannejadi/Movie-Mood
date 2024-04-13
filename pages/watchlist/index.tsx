@@ -4,8 +4,8 @@ import styles from "pages/watchlist/watchlist.module.scss";
 import Layout from "components/layout";
 import MovieCard from "components/movieCard/movieCard";
 import { useGetWatchListQuery } from "services/userApi";
-import apiKey from "api/apiKey";
 import Loader from "components/loader/loader";
+import apiToken from "api/token";
 
 const WatchlistPage: NextPageWithLayout = () => {
   const [sessionId, setSessionId] = useState<string | null>();
@@ -14,7 +14,7 @@ const WatchlistPage: NextPageWithLayout = () => {
   const { data = null, isLoading: isLoadingSearch } = useGetWatchListQuery(
     {
       account_id: userData?.id,
-      key: apiKey,
+      token: apiToken,
       session_id: sessionId,
     },
     { skip: !userData }

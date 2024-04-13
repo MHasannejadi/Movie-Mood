@@ -1,11 +1,13 @@
-import apiKey from "api/apiKey";
+import apiToken from "api/token";
 import Loader from "components/loader/loader";
 import MovieCard from "components/movieCard/movieCard";
 import { useGetPopularMoviesQuery } from "services/movieApi";
 import styles from "pages/home/home.module.scss";
 
 function HomePage() {
-  const { data = [], isLoading } = useGetPopularMoviesQuery(apiKey);
+  const { data = [], isLoading } = useGetPopularMoviesQuery({
+    token: apiToken,
+  });
 
   return (
     <div className={styles.home}>

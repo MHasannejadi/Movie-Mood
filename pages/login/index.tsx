@@ -7,10 +7,10 @@ import {
   useLoginMutation,
 } from "services/userApi";
 import { useRouter } from "next/router";
-import apiKey from "api/apiKey";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "components/loader/loader";
 import { useEffect } from "react";
+import apiToken from "api/token";
 
 interface MyFormValues {
   username: string;
@@ -25,7 +25,7 @@ export const LoginPage: React.FC<{}> = () => {
     refetch,
     data: request_token = null,
     isLoading: isLoadingToken,
-  } = useCreateTokenQuery(apiKey);
+  } = useCreateTokenQuery(apiToken);
   const [loginPost, { isLoading: isLoadingLogin }] = useLoginMutation();
   const [getSession, { isLoading: isLoadingSession }] =
     useCreateSessionMutation();
@@ -51,14 +51,14 @@ export const LoginPage: React.FC<{}> = () => {
       actions.setSubmitting(false);
       if (!isLoadingToken) {
         const loginResponse = await loginPost({
-          key: apiKey,
+          token: apiToken,
           request_token: request_token.request_token,
           username,
           password,
         }).unwrap();
         if (loginResponse.success) {
           const sessionResponse = await getSession({
-            key: apiKey,
+            token: apiToken,
             request_token: loginResponse.request_token,
           }).unwrap();
           if (sessionResponse.success) {

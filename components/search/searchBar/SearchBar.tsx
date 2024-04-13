@@ -1,10 +1,10 @@
-import styles from "components/search/searchBar/search-bar.module.scss";
+import { useState, useRef, useEffect } from "react";
 import { Formik, Form, Field, FormikProps } from "formik";
 import { useRouter } from "next/router";
-import { useState, useRef, useEffect } from "react";
-import apiKey from "api/apiKey";
+import apiToken from "api/token";
 import { useSearchQuery } from "services/movieApi";
 import SearchBox from "components/search/searchBox/SearchBox";
+import styles from "components/search/searchBar/search-bar.module.scss";
 
 interface MyFormValues {
   query: string;
@@ -21,7 +21,7 @@ function SearchBar() {
     data = null,
     isLoading: isLoadingSearch,
   } = useSearchQuery(
-    { query: formRef.current?.values.query, key: apiKey },
+    { query: formRef.current?.values.query, token: apiToken },
     { skip }
   );
 

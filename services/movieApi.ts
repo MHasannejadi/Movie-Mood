@@ -5,21 +5,51 @@ export const movieApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.themoviedb.org/3/" }),
   endpoints: (builder) => ({
     getPopularMovies: builder.query({
-      query: (key) =>
-        `discover/movie/?api_key=${key}&sort_by=popularity.desc&adult=false`,
+      query: (data) => {
+        return {
+          url: "discover/movie?sort_by=popularity.desc&adult=false",
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        };
+      },
     }),
     getMovie: builder.query({
-      query: (data) => `movie/${data.id}?api_key=${data.key}`,
+      query: (data) => {
+        return {
+          url: `movie/${data.id}`,
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        };
+      },
     }),
     getMovieCredits: builder.query({
-      query: (data) => `movie/${data.id}/credits?api_key=${data.key}`,
+      query: (data) => {
+        return {
+          url: `movie/${data.id}/credits`,
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        };
+      },
     }),
     search: builder.query({
-      query: (data) =>
-        `search/movie?api_key=${data.key}&query=${data.query}&language=en-US&page=1&include_adult=false`,
+      query: (data) => {
+        return {
+          url: `search/movie?query=${data.query}&language=en-US&page=1&include_adult=false`,
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        };
+      },
     }),
   }),
 });
 
-export const { useGetPopularMoviesQuery, useGetMovieQuery, useSearchQuery, useGetMovieCreditsQuery } =
-  movieApi;
+export const {
+  useGetPopularMoviesQuery,
+  useGetMovieQuery,
+  useSearchQuery,
+  useGetMovieCreditsQuery,
+} = movieApi;

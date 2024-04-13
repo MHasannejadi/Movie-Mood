@@ -16,12 +16,15 @@ export const userApi = createApi({
   tagTypes: ["Post"],
   endpoints: (builder) => ({
     createToken: builder.query({
-      query: (key) => `authentication/token/new?api_key=${key}`,
+      query: (key) => `authentication/token/new`,
     }),
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
-        url: `authentication/token/validate_with_login?api_key=${credentials.key}`,
+        url: `authentication/token/validate_with_login`,
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${credentials.token}`,
+        },
         body: {
           request_token: credentials.request_token,
           username: credentials.username,
@@ -31,8 +34,11 @@ export const userApi = createApi({
     }),
     createSession: builder.mutation<GetSessionResponse, GetSessionRequest>({
       query: (credentials) => ({
-        url: `authentication/session/new?api_key=${credentials.key}`,
+        url: `authentication/session/new`,
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${credentials.token}`,
+        },
         body: {
           request_token: credentials.request_token,
         },
@@ -47,8 +53,11 @@ export const userApi = createApi({
       AddToWatchListRequest
     >({
       query: (credentials) => ({
-        url: `account/${credentials.account_id}/watchlist?api_key=${credentials.key}&session_id=${credentials.session_id}`,
+        url: `account/${credentials.account_id}/watchlist&session_id=${credentials.session_id}`,
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${credentials.token}`,
+        },
         body: {
           media_type: credentials.media_type,
           media_id: credentials.media_id,
@@ -64,7 +73,7 @@ export const userApi = createApi({
               {
                 account_id: patch.account_id,
                 session_id: patch.session_id,
-                key: patch.key,
+                token: patch.token,
               },
               (draft) => {
                 const index = draft.results.findIndex(
@@ -83,7 +92,7 @@ export const userApi = createApi({
               {
                 account_id: patch.account_id,
                 session_id: patch.session_id,
-                key: patch.key,
+                token: patch.token,
               },
               (draft) => {
                 if (!draft.results.find((item) => item.id === patch.media_id)) {
@@ -103,8 +112,14 @@ export const userApi = createApi({
       },
     }),
     getWatchList: builder.query<{ results: Array<any> }, GetWatchListRequest>({
-      query: (credentials) =>
-        `account/${credentials.account_id}/watchlist/movies?api_key=${credentials.key}&session_id=${credentials.session_id}&sort_by=created_at.asc&page=1`,
+      query: (credentials) => {
+        return {
+          url: `account/${credentials.account_id}/watchlist/movies?session_id=${credentials.session_id}&sort_by=created_at.asc&page=1`,
+          headers: {
+            Authorization: `Bearer ${credentials.token}`,
+          },
+        };
+      },
     }),
   }),
 });

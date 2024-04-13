@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ReactElement } from "react";
 import { useRouter } from "next/router";
-import apiKey from "api/apiKey";
 import Layout from "components/layout";
 import { NextPageWithLayout } from "pages/_app";
 import { useGetMovieCreditsQuery, useGetMovieQuery } from "services/movieApi";
@@ -11,18 +10,19 @@ import toast from "react-hot-toast";
 import Loader from "components/loader/loader";
 import ActorCard from "components/actorCard/actorCard";
 import { imageSourceHighQuality } from "constants/image";
+import apiToken from "api/token";
 
 const MoviePage: NextPageWithLayout = () => {
   const router = useRouter();
 
   const { data: movie = {}, isLoading } = useGetMovieQuery(
-    { key: apiKey, id: router.query.movieId },
+    { token: apiToken, id: router.query.movieId },
     { skip: !router.query.movieId }
   );
 
   const { data: actors = {}, isLoading: isLoadingCredits } =
     useGetMovieCreditsQuery(
-      { key: apiKey, id: router.query.movieId },
+      { token: apiToken, id: router.query.movieId },
       { skip: !router.query.movieId }
     );
 
@@ -37,7 +37,7 @@ const MoviePage: NextPageWithLayout = () => {
       try {
         const watchlistResponse = await addToWatchlist({
           account_id: userData.id,
-          key: apiKey,
+          token: apiToken,
           session_id: sessionId,
           media_id: movie.id,
           media_type: "movie",

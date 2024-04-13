@@ -2,9 +2,9 @@
 import Link from "next/link";
 import styles from "components/movieCard/movie-card.module.scss";
 import { useAddToWatchListMutation } from "services/userApi";
-import apiKey from "api/apiKey";
 import toast from "react-hot-toast";
 import { imageSourceLowQuality } from "constants/image";
+import apiToken from "api/token";
 
 function MovieCard({
   movie,
@@ -24,7 +24,7 @@ function MovieCard({
       try {
         await addToWatchlist({
           account_id: userData?.id,
-          key: apiKey,
+          token: apiToken,
           session_id: sessionId,
           media_id: movie.id,
           media_type: "movie",
